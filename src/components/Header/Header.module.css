@@ -1,0 +1,7 @@
+.container {
+  grid-area: h;  
+  background: #0064ab;
+}
+.container img {
+  width: 100px;
+}

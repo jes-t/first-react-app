@@ -1,4 +1,21 @@
-ul li {
-    list-style-type: georgian;
-    color: rgb(1, 15, 204);   
+.app-wrapper {
+    display: grid;    
+
+    grid-template-areas:
+    "h h"
+    "n c";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    
+    
+}
+
+.nav {
+    grid-area: n;
+    background-color: #3B88BE;
+}
+
+.content {
+    grid-area: c;
+    background-color: #E8F2F9;
 }

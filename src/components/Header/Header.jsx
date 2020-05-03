@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
+import styles from "./Header.module.css";
+import logo from "./logo.png";
 
 const Header = () => {
-  return (
-    <div>
-      <a href="#s">HOME</a>
-      <a href="#s">News Feed</a>
-      <a href="#s">Messages</a>
-    </div>
-  );
-};
+    return (
+        <div className={styles.container}>
+       <img src={logo}/>
+        </div>
+    )
+}
 
 export default Header;
