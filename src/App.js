@@ -1,40 +1,49 @@
 import React from "react";
-import { Header } from "./components/Header/Header.jsx";
+import { Layout, Menu } from "antd";
+import {
+  ProfileOutlined,
+  UsergroupAddOutlined,
+  CommentOutlined,
+} from "@ant-design/icons";
+import "antd/dist/antd.css";
 import "./App.css";
+import logo from "./logo.png";
+
+const { Header, Content, Footer, Sider } = Layout;
+const { Item } = Menu;
 
 const App = () => {
   return (
-    <div className="app-wrapper">
-      <Header />
-      <nav className="nav">
-        <div>
-          <a>Profile</a>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider>
+        <div className="logo">
+          <img src={logo} />
         </div>
-        <div>
-          <a>Messages</a>
-        </div>
-        <div>
-          <a>News</a>
-        </div>
-        <div>
-          <a>Music</a>
-        </div>
-        <div>
-          <a>Settings</a>
-        </div>
-      </nav>
-      <div className="content">
-        <div>ava + description</div>
-        <div>
-          My posts
-          <div>New post</div>
-          <div>
-            <div>post 1</div>
-            <div>post 2</div>
+        <Menu theme="dark" defaultSelectedKeys={["1"]}>
+          <Item key="1" icon={<ProfileOutlined />}>
+            Profile
+          </Item>
+          <Item key="2" icon={<UsergroupAddOutlined />}>
+            Users
+          </Item>
+          <Item key="3" icon={<CommentOutlined />}>
+            Messages
+          </Item>
+        </Menu>
+      </Sider>
+      <Layout className="site-layout">
+        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Content style={{ margin: "16px" }}>
+          <div
+            className="site-layout-background"
+            style={{ padding: 24, height: "100%" }}
+          >
+            Bjorn is a cat!!!
           </div>
-        </div>
-      </div>
-    </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>Котики!</Footer>
+      </Layout>
+    </Layout>
   );
 };
 
