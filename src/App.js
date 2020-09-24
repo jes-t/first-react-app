@@ -8,6 +8,7 @@ import {
 import "antd/dist/antd.css";
 import "./App.css";
 import logo from "./logo.png";
+import { MyPosts } from "./components/Profile/MyPosts/MyPosts";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
@@ -38,7 +39,7 @@ const App = () => {
             className="site-layout-background"
             style={{ padding: 24, height: "100%" }}
           >
-            Bjorn is a cat!!!
+            <MyPosts />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Котики!</Footer>
