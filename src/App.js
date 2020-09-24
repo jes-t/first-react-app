@@ -8,7 +8,10 @@ import {
 import "antd/dist/antd.css";
 import "./App.css";
 import logo from "./logo.png";
-import { MyPosts } from "./components/Profile/MyPosts/MyPosts";
+import { Profile } from "./components/Profile/Profile";
+import { Users } from "./components/Users/Users";
+import { Messages } from "./components/Messages/Messages";
+import { Route, NavLink } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
@@ -22,13 +25,13 @@ const App = () => {
         </div>
         <Menu theme="dark" defaultSelectedKeys={["1"]}>
           <Item key="1" icon={<ProfileOutlined />}>
-            Profile
+            <NavLink to="/profile">Profile</NavLink>
           </Item>
           <Item key="2" icon={<UsergroupAddOutlined />}>
-            Users
+            <NavLink to="/users">Users</NavLink>
           </Item>
           <Item key="3" icon={<CommentOutlined />}>
-            Messages
+            <NavLink to="/messages">Messages</NavLink>
           </Item>
         </Menu>
       </Sider>
@@ -39,7 +42,9 @@ const App = () => {
             className="site-layout-background"
             style={{ padding: 24, height: "100%" }}
           >
-            <MyPosts />
+            <Route path="/profile" component={Profile} />
+            <Route path="/users" component={Users} />
+            <Route path="/messages" component={Messages} />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Котики!</Footer>

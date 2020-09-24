@@ -27,7 +27,7 @@ export const MyPosts = () => {
   return (
     <div>
       <div>
-        <Input onPressEnter={onEnter} onChange={onHandler} value={textInput} />
+        <Input.TextArea autoSize onPressEnter={onEnter} onChange={onHandler} value={textInput} style={{width: "300px"}} />
       </div>
       <div>
         {posts.map((item) => {
