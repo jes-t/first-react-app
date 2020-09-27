@@ -10,7 +10,7 @@ import "./App.css";
 import logo from "./logo.png";
 import { Profile } from "./components/Profile/Profile";
 import { Users } from "./components/Users/Users";
-import { Messages } from "./components/Messages/Messages";
+import { Dialogs } from "./components/Dialogs/Dialogs";
 import { Route, NavLink } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -31,7 +31,7 @@ const App = () => {
             <NavLink to="/users">Users</NavLink>
           </Item>
           <Item key="3" icon={<CommentOutlined />}>
-            <NavLink to="/messages">Messages</NavLink>
+            <NavLink to="/dialogs">Dialogs</NavLink>
           </Item>
         </Menu>
       </Sider>
@@ -44,7 +44,7 @@ const App = () => {
           >
             <Route path="/profile" component={Profile} />
             <Route path="/users" component={Users} />
-            <Route path="/messages" component={Messages} />
+            <Route path="/dialogs" component={Dialogs} />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Котики!</Footer>
