@@ -34,7 +34,6 @@ export const Message = ({ dialog }) => {
   return (
     <List.Item style={{ padding: "16px" }} className="messageItem">
       {dialog.messages.map((message) => {
-        debugger;
         const fullName = usersArr.filter((element) => {
           if (element.id === message.userId) {
             return element;

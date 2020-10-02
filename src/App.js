@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import {
+  HomeOutlined,
   ProfileOutlined,
   UsergroupAddOutlined,
   CommentOutlined,
@@ -11,27 +12,40 @@ import logo from "./logo.png";
 import { Profile } from "./components/Profile/Profile";
 import { Users } from "./components/Users/Users";
 import { Dialogs } from "./components/Dialogs/Dialogs";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, Switch } from "react-router-dom";
+import { PageNotFound } from "./components/PageNotFound/PageNotFound";
+import { HomePage } from "./components/HomePage/HomePage";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
 
-const App = () => {
+const App = (props) => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
         <div className="logo">
           <img src={logo} />
         </div>
-        <Menu theme="dark" defaultSelectedKeys={["1"]}>
-          <Item key="1" icon={<ProfileOutlined />}>
-            <NavLink to="/profile">Profile</NavLink>
+        <Menu theme="dark" defaultSelectedKeys={[props.location.pathname]}>
+          <Item key="/" icon={<HomeOutlined />}>
+            <NavLink exact to="/">
+              Home
+            </NavLink>
           </Item>
-          <Item key="2" icon={<UsergroupAddOutlined />}>
-            <NavLink to="/users">Users</NavLink>
+          <Item key="/profile" icon={<ProfileOutlined />}>
+            <NavLink exact to="/profile">
+              Profile
+            </NavLink>
           </Item>
-          <Item key="3" icon={<CommentOutlined />}>
-            <NavLink to="/dialogs">Dialogs</NavLink>
+          <Item key="/users" icon={<UsergroupAddOutlined />}>
+            <NavLink exact to="/users">
+              Users
+            </NavLink>
+          </Item>
+          <Item key="/dialogs" icon={<CommentOutlined />}>
+            <NavLink exact to="/dialogs">
+              Dialogs
+            </NavLink>
           </Item>
         </Menu>
       </Sider>
@@ -42,9 +56,13 @@ const App = () => {
             className="site-layout-background"
             style={{ padding: 24, height: "100%" }}
           >
-            <Route path="/profile" component={Profile} />
-            <Route path="/users" component={Users} />
-            <Route path="/dialogs" component={Dialogs} />
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/users" component={Users} />
+              <Route exact path="/dialogs" component={Dialogs} />
+              <Route component={PageNotFound} />
+            </Switch>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Котики!</Footer>
