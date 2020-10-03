@@ -1,12 +1,10 @@
 import React from "react";
 import { Card, Avatar } from "antd";
-import { usersArr} from '../../data/data'
-
 
 export const Users = (props) => {
   return (
     <div>
-      {usersArr.map((user) => {
+      {props.users.map((user) => {
         return (
           <Card style={{ width: 300, marginTop: 16 }} key={user.id}>
             <Card.Meta

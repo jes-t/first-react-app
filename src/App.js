@@ -20,6 +20,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
 
 const App = (props) => {
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
@@ -58,9 +59,9 @@ const App = (props) => {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/users" component={Users} />
-              <Route exact path="/dialogs" component={Dialogs} />
+              <Route exact path="/profile" render={() => <Profile posts={props.posts} />} />
+              <Route exact path="/users" render={() => <Users users={props.users} />}  />
+              <Route exact path="/dialogs" render={() => <Dialogs dialogs={props.dialogs} />} />
               <Route component={PageNotFound} />
             </Switch>
           </div>
