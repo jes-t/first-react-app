@@ -4,7 +4,7 @@ import { Input } from "antd";
 
 export const MyPosts = (props) => {
   const [textInput, setTextInput] = useState("");
-
+ // testing commit 
   const onEnter = () => {
     const obj = {
       id: props.posts.length,
