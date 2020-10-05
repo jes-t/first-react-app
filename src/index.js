@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter, withRouter } from "react-router-dom";
-import { dialogs, posts, usersArr } from "./data/data";
+import { state } from "./redux/state";
 
 const AppWithRouter = withRouter(props => <App {...props} />) 
 
 ReactDOM.render(
   <BrowserRouter>
-    <AppWithRouter dialogs={dialogs} posts={posts} users={usersArr} />
+    <AppWithRouter state={state} />
  </BrowserRouter>,
   document.getElementById("root")
 );
