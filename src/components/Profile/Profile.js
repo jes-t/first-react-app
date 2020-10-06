@@ -7,7 +7,7 @@ export const Profile = (props) => {
   return <div>
       <img src={logo} />
       <h1>Profile</h1>
-      <MyPosts posts={props.posts} />
+      <MyPosts posts={props.posts} addPost={props.addPost} />
       </div>;
 };
 

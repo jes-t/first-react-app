@@ -59,7 +59,7 @@ const App = (props) => {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/profile" render={() => <Profile posts={props.state.posts} />} />
+              <Route exact path="/profile" render={() => <Profile posts={props.state.posts} addPost={props.addPost} />} />
               <Route exact path="/users" render={() => <Users users={props.state.usersArr} />}  />
               <Route exact path="/dialogs" render={() => <Dialogs dialogs={props.state.dialogs} />} />
               <Route component={PageNotFound} />
