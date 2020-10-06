@@ -19,15 +19,14 @@ import { HomePage } from "./components/HomePage/HomePage";
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
 
-const App = (props) => {
-
+const App = ({ state, addPost, location }) => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
         <div className="logo">
           <img src={logo} />
         </div>
-        <Menu theme="dark" defaultSelectedKeys={[props.location.pathname]}>
+        <Menu theme="dark" defaultSelectedKeys={[location.pathname]}>
           <Item key="/" icon={<HomeOutlined />}>
             <NavLink exact to="/">
               Home
@@ -59,9 +58,21 @@ const App = (props) => {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/profile" render={() => <Profile posts={props.state.posts} addPost={props.addPost} />} />
-              <Route exact path="/users" render={() => <Users users={props.state.usersArr} />}  />
-              <Route exact path="/dialogs" render={() => <Dialogs dialogs={props.state.dialogs} />} />
+              <Route
+                exact
+                path="/profile"
+                render={() => <Profile posts={state.posts} addPost={addPost} />}
+              />
+              <Route
+                exact
+                path="/users"
+                render={() => <Users users={state.usersArr} />}
+              />
+              <Route
+                exact
+                path="/dialogs"
+                render={() => <Dialogs dialogs={state.dialogs} />}
+              />
               <Route component={PageNotFound} />
             </Switch>
           </div>
