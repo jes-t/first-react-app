@@ -99,3 +99,12 @@ export const state = {
         },
       ],
   }
+
+
+  export const addPost = (text) => {
+        const obj = {
+          id: state.posts.length,
+          text,
+        };
+    state.posts.push(obj);
+  }
