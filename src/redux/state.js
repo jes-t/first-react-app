@@ -1,4 +1,4 @@
-import { rerenderEntireTree } from "../render";
+let rerenderEntireTree = () => {};
 
 export const state = {
   posts: [
@@ -109,4 +109,8 @@ export const addPost = (text) => {
   };
   state.posts.push(obj);
   rerenderEntireTree(state);
+};
+
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
 };
