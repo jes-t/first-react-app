@@ -5,11 +5,12 @@ import "./dialogs.css";
 
 
 
-export const Dialogs = (props) => {
+export const Dialogs = ({ dialogs, usersArr}) => {
+  
   return (
     <div className="dialogs">
-      <Companions dialogs={props.dialogs} />
-      <Messages dialogs={props.dialogs} />
+      <Companions dialogs={dialogs} />
+      <Messages dialogs={dialogs} usersArr={usersArr} />
     </div>
   );
 };

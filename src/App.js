@@ -71,7 +71,7 @@ const App = ({ state, dispatch, location }) => {
               <Route
                 exact
                 path="/dialogs"
-                render={() => <Dialogs dialogs={state.dialogs} />}
+                render={() => <Dialogs dialogs={state.dialogs} usersArr={state.usersArr} />}
               />
               <Route component={PageNotFound} />
             </Switch>

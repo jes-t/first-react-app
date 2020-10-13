@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Post } from "./Post";
 import { Input } from "antd";
+import { addPostActionCreator } from "../../../redux/state";
 
 export const MyPosts = ({ dispatch, posts }) => {
   const [textInput, setTextInput] = useState("");
 
   const onEnter = () => {
-    dispatch({ text: textInput, type: "ADD-POST" });
+    dispatch(addPostActionCreator(textInput));
     setTextInput("");
   };
 

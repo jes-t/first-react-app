@@ -1,3 +1,5 @@
+const ADD_POST = "ADD_POST";
+
 export const store = {
   _state: {
     posts: [
@@ -112,12 +114,11 @@ export const store = {
   dispatch(action) {
     
     switch (action.type) {
-      case "ADD-POST": {
+      case ADD_POST: {
         const obj = {
           id: this._state.posts.length,
           text: action.text,
         };
-        debugger;
         this._state.posts.push(obj);
         this._callSubscriber(this._state);
         break;
@@ -125,3 +126,9 @@ export const store = {
     }
   },
 };
+
+export const addPostActionCreator = (text) => ({
+      text,
+      type: ADD_POST,
+    })
+
