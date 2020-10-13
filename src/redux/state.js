@@ -100,19 +100,28 @@ export const store = {
       },
     ],
   },
+  _callSubscriber() {},
+
   getState() {
     return this._state;
   },
-  _callSubscriber() {},
-  addPost(text) {
-    const obj = {
-      id: this._state.posts.length,
-      text,
-    };
-    this._state.posts.push(obj);
-    this._callSubscriber(this._state);
-  },
-  subscribe(observer)  {
+  subscribe(observer) {
     this._callSubscriber = observer;
+  },
+
+  dispatch(action) {
+    
+    switch (action.type) {
+      case "ADD-POST": {
+        const obj = {
+          id: this._state.posts.length,
+          text: action.text,
+        };
+        debugger;
+        this._state.posts.push(obj);
+        this._callSubscriber(this._state);
+        break;
+      }
+    }
   },
 };
