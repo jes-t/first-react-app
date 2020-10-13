@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Post } from "./Post";
 import { Input } from "antd";
 
-export const MyPosts = ({ addPost, posts }) => {
+export const MyPosts = ({ dispatch, posts }) => {
   const [textInput, setTextInput] = useState("");
 
   const onEnter = () => {
-    addPost(textInput);
+    dispatch({ text: textInput, type: "ADD-POST" });
     setTextInput("");
   };
 

@@ -19,7 +19,7 @@ import { HomePage } from "./components/HomePage/HomePage";
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
 
-const App = ({ state, addPost, location }) => {
+const App = ({ state, dispatch, location }) => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
@@ -61,7 +61,7 @@ const App = ({ state, addPost, location }) => {
               <Route
                 exact
                 path="/profile"
-                render={() => <Profile posts={state.posts} addPost={addPost} />}
+                render={() => <Profile posts={state.posts} dispatch={dispatch} />}
               />
               <Route
                 exact
