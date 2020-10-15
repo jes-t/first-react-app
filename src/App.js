@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import {
   HomeOutlined,
@@ -12,7 +12,7 @@ import logo from "./logo.png";
 import { Profile } from "./components/Profile/Profile";
 import { Users } from "./components/Users/Users";
 import { Dialogs } from "./components/Dialogs/Dialogs";
-import { Route, NavLink, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import { PageNotFound } from "./components/PageNotFound/PageNotFound";
 import { HomePage } from "./components/HomePage/HomePage";
 
@@ -20,32 +20,44 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
 
 const App = ({ state, dispatch, location }) => {
+  const [activeKey, setActiveKey] = useState('');
+
+  useEffect(() => {
+    if(location.pathname.includes('/', 1)) {
+      setActiveKey(location.pathname.substring(0, location.pathname.indexOf('/', 1)));
+    } else {
+      setActiveKey(location.pathname);
+    }
+  }, [location])
+
+  console.log(activeKey)
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
         <div className="logo">
           <img src={logo} />
         </div>
-        <Menu theme="dark" defaultSelectedKeys={[location.pathname]}>
+        <Menu theme="dark" selectedKeys={[activeKey]}>
           <Item key="/" icon={<HomeOutlined />}>
-            <NavLink exact to="/">
+            <Link exact to="/">
               Home
-            </NavLink>
+            </Link>
           </Item>
           <Item key="/profile" icon={<ProfileOutlined />}>
-            <NavLink exact to="/profile">
+            <Link exact to="/profile">
               Profile
-            </NavLink>
+            </Link>
           </Item>
           <Item key="/users" icon={<UsergroupAddOutlined />}>
-            <NavLink exact to="/users">
+            <Link exact to="/users">
               Users
-            </NavLink>
+            </Link>
           </Item>
           <Item key="/dialogs" icon={<CommentOutlined />}>
-            <NavLink exact to="/dialogs">
+            <Link to="/dialogs">
               Dialogs
-            </NavLink>
+            </Link>
           </Item>
         </Menu>
       </Sider>
@@ -71,7 +83,7 @@ const App = ({ state, dispatch, location }) => {
               <Route
                 exact
                 path="/dialogs"
-                render={() => <Dialogs dialogs={state.dialogs} usersArr={state.usersArr} />}
+                render={() => <Dialogs dispatch={dispatch} dialogs={state.dialogs} usersArr={state.usersArr} />}
               />
               <Route component={PageNotFound} />
             </Switch>

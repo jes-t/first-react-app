@@ -1,10 +1,11 @@
 import React from "react";
 import { List } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
+import styled from "styled-components";
 
 export const Message = ({ dialog, usersArr }) => {
   return (
-    <List.Item style={{ padding: "16px" }} className="messageItem">
+    <MessageItem>
       {dialog.messages.map((message) => {
         const fullName = usersArr.filter((element) => {
           if (element.id === message.userId) {
@@ -27,7 +28,7 @@ export const Message = ({ dialog, usersArr }) => {
           />
         );
       })}
-    </List.Item>
+    </MessageItem>
   );
 };
 
@@ -49,3 +50,8 @@ const Title = ({ firstName, lastName, time }) => {
     </div>
   );
 };
+const MessageItem = styled(List.Item)`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+`;
