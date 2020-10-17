@@ -1,25 +1,23 @@
-import React, {useState} from "react";
+import React from "react";
 import { List, Avatar } from "antd";
+import styled from "styled-components";
 
 export const Companion = (props) => {
-  const [active, setActive] = useState(false);
 
   return (
-    <List.Item
-      className={active ? "activeCompanion" : ""}
-      style={{padding: '16px'}}
-      onMouseOver={() => {
-        setActive(true);
-      }}
-      onMouseLeave={() => {
-        setActive(false);
-      }}
-    >
+    <CompanionItem>
       <List.Item.Meta
         avatar={<Avatar src={props.dialog.avatarUrl} />}
         title={`${props.dialog.firstName} ${props.dialog.lastName}`}
         description={props.dialog.messages[2].message}
       />
-    </List.Item>
+    </CompanionItem>
   );
 };
+
+const CompanionItem = styled(List.Item)`
+  padding: 16px;
+  :hover {
+    background-color: #fafafa;
+  }
+`;

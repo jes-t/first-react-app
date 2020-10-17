@@ -1,4 +1,5 @@
 const ADD_POST = "ADD_POST";
+const NEW_MESSAGE = "NEW_MESSAGE";
 
 export const store = {
   _state: {
@@ -112,7 +113,6 @@ export const store = {
   },
 
   dispatch(action) {
-    
     switch (action.type) {
       case ADD_POST: {
         const obj = {
@@ -123,12 +123,26 @@ export const store = {
         this._callSubscriber(this._state);
         break;
       }
+      case NEW_MESSAGE: {
+        const newMessage = {
+          data: "01.01.2020",
+          time: "00:00",
+          userId: 2,
+          message: action.text,
+        };
+        this._state.dialogs[2].messages.push(newMessage);
+        //this._callSubscriber(this._state);
+        break;
+      }
     }
   },
 };
 
 export const addPostActionCreator = (text) => ({
-      text,
-      type: ADD_POST,
-    })
-
+  text,
+  type: ADD_POST,
+});
+export const newMessageActionCreator = (text) => ({
+  text,
+  type: NEW_MESSAGE,
+});
