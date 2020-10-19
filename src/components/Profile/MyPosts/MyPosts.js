@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Post } from "./Post";
 import { Input } from "antd";
-import { addPostActionCreator } from "../../../redux/state";
+import { addPostActionCreator } from "../../../redux/profile-reducer";
 
 export const MyPosts = ({ dispatch, posts }) => {
   const [textInput, setTextInput] = useState("");

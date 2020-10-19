@@ -1,5 +1,5 @@
-const ADD_POST = "ADD_POST";
-const NEW_MESSAGE = "NEW_MESSAGE";
+import { profileReducer } from "../redux/profile-reducer";
+import { dialogsReducer } from "../redux/dialogs-reducer";
 
 export const store = {
   _state: {
@@ -113,36 +113,9 @@ export const store = {
   },
 
   dispatch(action) {
-    switch (action.type) {
-      case ADD_POST: {
-        const obj = {
-          id: this._state.posts.length,
-          text: action.text,
-        };
-        this._state.posts.push(obj);
-        this._callSubscriber(this._state);
-        break;
-      }
-      case NEW_MESSAGE: {
-        const newMessage = {
-          data: "01.01.2020",
-          time: "00:00",
-          userId: 2,
-          message: action.text,
-        };
-        this._state.dialogs[2].messages.push(newMessage);
-        //this._callSubscriber(this._state);
-        break;
-      }
-    }
+    this._state.posts = profileReducer(this._state.posts, action);
+    this._state = dialogsReducer(this._state, action);
+
+    this._callSubscriber(this._state);
   },
 };
-
-export const addPostActionCreator = (text) => ({
-  text,
-  type: ADD_POST,
-});
-export const newMessageActionCreator = (text) => ({
-  text,
-  type: NEW_MESSAGE,
-});
