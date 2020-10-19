@@ -1,39 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Menu } from "antd";
+import React, { useState, useEffect } from 'react'
+import { Layout, Menu } from 'antd'
 import {
   HomeOutlined,
   ProfileOutlined,
   UsergroupAddOutlined,
   CommentOutlined,
-} from "@ant-design/icons";
-import "antd/dist/antd.css";
-import "./App.css";
-import logo from "./logo.png";
-import { Profile } from "./components/Profile/Profile";
-import { Users } from "./components/Users/Users";
-import { Dialogs } from "./components/Dialogs/Dialogs";
-import { Route, Switch, Link } from "react-router-dom";
-import { PageNotFound } from "./components/PageNotFound/PageNotFound";
-import { HomePage } from "./components/HomePage/HomePage";
+} from '@ant-design/icons'
+import 'antd/dist/antd.css'
+import './App.css'
+import logo from './logo.png'
+import { Profile } from './components/Profile/Profile'
+import { Users } from './components/Users/Users'
+import { Dialogs } from './components/Dialogs/Dialogs'
+import { Route, Switch, Link } from 'react-router-dom'
+import { PageNotFound } from './components/PageNotFound/PageNotFound'
+import { HomePage } from './components/HomePage/HomePage'
 
-const { Header, Content, Footer, Sider } = Layout;
-const { Item } = Menu;
+const { Header, Content, Footer, Sider } = Layout
+const { Item } = Menu
 
 const App = ({ state, dispatch, location }) => {
-  const [activeKey, setActiveKey] = useState('');
+  const [activeKey, setActiveKey] = useState('')
 
   useEffect(() => {
-    if(location.pathname.includes('/', 1)) {
-      setActiveKey(location.pathname.substring(0, location.pathname.indexOf('/', 1)));
+    if (location.pathname.includes('/', 1)) {
+      setActiveKey(
+        location.pathname.substring(0, location.pathname.indexOf('/', 1))
+      )
     } else {
-      setActiveKey(location.pathname);
+      setActiveKey(location.pathname)
     }
   }, [location])
 
   console.log(activeKey)
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider>
         <div className="logo">
           <img src={logo} />
@@ -55,44 +57,50 @@ const App = ({ state, dispatch, location }) => {
             </Link>
           </Item>
           <Item key="/dialogs" icon={<CommentOutlined />}>
-            <Link to="/dialogs">
-              Dialogs
-            </Link>
+            <Link to="/dialogs">Dialogs</Link>
           </Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }} />
-        <Content style={{ margin: "16px" }}>
+        <Content style={{ margin: '16px' }}>
           <div
             className="site-layout-background"
-            style={{ padding: 24, height: "100%" }}
+            style={{ padding: 24, height: '100%' }}
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route
                 exact
                 path="/profile"
-                render={() => <Profile posts={state.posts} dispatch={dispatch} />}
+                render={() => (
+                  <Profile posts={state.profile.posts} dispatch={dispatch} />
+                )}
               />
               <Route
                 exact
                 path="/users"
-                render={() => <Users users={state.usersArr} />}
+                render={() => <Users users={state.users.usersArr} />}
               />
               <Route
                 exact
                 path="/dialogs"
-                render={() => <Dialogs dispatch={dispatch} dialogs={state.dialogs} usersArr={state.usersArr} />}
+                render={() => (
+                  <Dialogs
+                    dispatch={dispatch}
+                    dialogs={state.dialogs.dialogs}
+                    usersArr={state.users.usersArr}
+                  />
+                )}
               />
               <Route component={PageNotFound} />
             </Switch>
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>Котики!</Footer>
+        <Footer style={{ textAlign: 'center' }}>Котики!</Footer>
       </Layout>
     </Layout>
-  );
-};
+  )
+}
 
-export default App;
+export default App

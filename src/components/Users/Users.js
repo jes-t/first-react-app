@@ -1,8 +1,7 @@
-import React from "react";
-import { Card, Avatar } from "antd";
+import React from 'react'
+import { Card, Avatar } from 'antd'
 
 export const Users = (props) => {
-  
   return (
     <div>
       {props.users.map((user) => {
@@ -14,8 +13,8 @@ export const Users = (props) => {
               description={user.description}
             />
           </Card>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}

@@ -1,7 +1,7 @@
-import React from "react";
-import { List } from "antd";
-import Avatar from "antd/lib/avatar/avatar";
-import styled from "styled-components";
+import React from 'react'
+import { List } from 'antd'
+import Avatar from 'antd/lib/avatar/avatar'
+import styled from 'styled-components'
 
 export const Message = ({ dialog, usersArr }) => {
   return (
@@ -9,14 +9,14 @@ export const Message = ({ dialog, usersArr }) => {
       {dialog.messages.map((message) => {
         const fullName = usersArr.filter((element) => {
           if (element.id === message.userId) {
-            return element;
+            return element
           }
-        });
+        })
 
         return (
           <List.Item.Meta
             avatar={<Avatar src={fullName[0].avatarUrl} />}
-            style={{ width: "100%", padding: 10 }}
+            style={{ width: '100%', padding: 10 }}
             title={
               <Title
                 firstName={fullName[0].firstName}
@@ -26,19 +26,19 @@ export const Message = ({ dialog, usersArr }) => {
             }
             description={<Description message={message.message} />}
           />
-        );
+        )
       })}
     </MessageItem>
-  );
-};
+  )
+}
 
 const Description = ({ message }) => {
   return (
     <>
       <div>{message}</div>
     </>
-  );
-};
+  )
+}
 
 const Title = ({ firstName, lastName, time }) => {
   return (
@@ -48,10 +48,10 @@ const Title = ({ firstName, lastName, time }) => {
         {time}
       </span>
     </div>
-  );
-};
+  )
+}
 const MessageItem = styled(List.Item)`
   display: flex;
   flex-direction: column;
   padding: 16px;
-`;
+`

@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import { Companions } from "./Components/Companions/Companions";
-import { Messages } from "./Components/Messages/Messages";
-import { Input } from "antd";
-import styled from "styled-components";
-import { newMessageActionCreator } from "../../redux/dialogs-reducer";
+import React, { useState } from 'react'
+import { Companions } from './Components/Companions/Companions'
+import { Messages } from './Components/Messages/Messages'
+import { Input } from 'antd'
+import styled from 'styled-components'
+import { newMessageActionCreator } from '../../redux/dialogs-reducer'
 
-
-export const Dialogs = ({ dialogs,dispatch, usersArr }) => {
-  const [textMessage, setTextMessage] = useState("");
+export const Dialogs = ({ dialogs, dispatch, usersArr }) => {
+  const [textMessage, setTextMessage] = useState('')
 
   const onEnter = () => {
-    dispatch(newMessageActionCreator(textMessage));
-    setTextMessage("");
-  };
+    dispatch(newMessageActionCreator(textMessage))
+    setTextMessage('')
+  }
 
   const onHandler = (e) => {
-    setTextMessage(e.target.value);
-  };
+    setTextMessage(e.target.value)
+  }
 
   return (
     <DialogsContainer>
@@ -28,17 +27,17 @@ export const Dialogs = ({ dialogs,dispatch, usersArr }) => {
           onPressEnter={onEnter}
           onChange={onHandler}
           value={textMessage}
-          style={{ width: "300px" }}
+          style={{ width: '300px' }}
         />
       </Content>
     </DialogsContainer>
-  );
-};
+  )
+}
 const DialogsContainer = styled.div`
   display: flex;
-`;
+`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
+`
