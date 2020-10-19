@@ -3,7 +3,7 @@ import { Companions } from "./Components/Companions/Companions";
 import { Messages } from "./Components/Messages/Messages";
 import { Input } from "antd";
 import styled from "styled-components";
-import { newMessageActionCreator } from "../../redux/state";
+import { newMessageActionCreator } from "../../redux/dialogs-reducer";
 
 
 export const Dialogs = ({ dialogs,dispatch, usersArr }) => {
