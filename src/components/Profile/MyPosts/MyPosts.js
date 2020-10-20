@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Post } from "./Post";
-import { Input } from "antd";
-import { addPostActionCreator } from "../../../redux/profile-reducer";
+import React, { useState } from 'react'
+import { Post } from './Post'
+import { Input } from 'antd'
+import { addPostActionCreator } from '../../../redux/profile-reducer'
 
 export const MyPosts = ({ dispatch, posts }) => {
-  const [textInput, setTextInput] = useState("");
+  const [textInput, setTextInput] = useState('')
 
   const onEnter = () => {
-    dispatch(addPostActionCreator(textInput));
-    setTextInput("");
-  };
+    dispatch(addPostActionCreator(textInput))
+    setTextInput('')
+  }
 
   const onHandler = (e) => {
-    setTextInput(e.target.value);
-  };
+    setTextInput(e.target.value)
+  }
 
   return (
     <div>
@@ -23,14 +23,14 @@ export const MyPosts = ({ dispatch, posts }) => {
           onPressEnter={onEnter}
           onChange={onHandler}
           value={textInput}
-          style={{ width: "300px" }}
+          style={{ width: '300px' }}
         />
       </div>
       <div>
         {posts.map((item) => {
-          return <Post postText={item.text} key={item.id} />;
+          return <Post postText={item.text} key={item.id} />
         })}
       </div>
     </div>
-  );
-};
+  )
+}
