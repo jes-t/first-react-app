@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
 import { Post } from './Post'
 import { Input } from 'antd'
-import { addPostActionCreator } from '../../../redux/profile-reducer'
 
-export const MyPosts = ({ dispatch, posts }) => {
+export const MyPosts = ({ addPost, posts }) => {
   const [textInput, setTextInput] = useState('')
 
   const onEnter = () => {
-    dispatch(addPostActionCreator(textInput))
+    addPost(textInput)
     setTextInput('')
-  }
-
-  const onHandler = (e) => {
-    setTextInput(e.target.value)
   }
 
   return (
@@ -21,7 +16,7 @@ export const MyPosts = ({ dispatch, posts }) => {
         <Input.TextArea
           autoSize
           onPressEnter={onEnter}
-          onChange={onHandler}
+          onChange={(e) => setTextInput(e.target.value)}
           value={textInput}
           style={{ width: '300px' }}
         />
