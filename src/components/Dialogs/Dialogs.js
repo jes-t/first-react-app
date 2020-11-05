@@ -3,37 +3,32 @@ import { Companions } from './Components/Companions/Companions'
 import { Messages } from './Components/Messages/Messages'
 import { Input } from 'antd'
 import styled from 'styled-components'
-import { newMessageActionCreator } from '../../redux/dialogs-reducer'
 
-export const Dialogs = ({ dialogs, dispatch, usersArr }) => {
+export const Dialogs = ({ addMessage, dialogs, usersArr }) => {
   const [textMessage, setTextMessage] = useState('')
 
   const onEnter = () => {
-    dispatch(newMessageActionCreator(textMessage))
+    addMessage(textMessage)
     setTextMessage('')
   }
 
-  const onHandler = (e) => {
-    setTextMessage(e.target.value)
-  }
-
   return (
-    <DialogsContainer>
+    <MainContainer>
       <Companions dialogs={dialogs} />
       <Content>
         <Messages dialogs={dialogs} usersArr={usersArr} />
         <Input.TextArea
           autoSize
           onPressEnter={onEnter}
-          onChange={onHandler}
+          onChange={(e) => setTextMessage(e.target.value)}
           value={textMessage}
           style={{ width: '300px' }}
         />
       </Content>
-    </DialogsContainer>
+    </MainContainer>
   )
 }
-const DialogsContainer = styled.div`
+const MainContainer = styled.div`
   display: flex;
 `
 const Content = styled.div`

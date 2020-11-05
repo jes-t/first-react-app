@@ -15,11 +15,12 @@ import { Dialogs } from './components/Dialogs/Dialogs'
 import { Route, Switch, Link } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
 import { HomePage } from './components/HomePage/HomePage'
+import { DialogsContainer } from './components/Dialogs/DialogsContainer'
 
 const { Header, Content, Footer, Sider } = Layout
 const { Item } = Menu
 
-const App = ({ state, dispatch, location }) => {
+const App = ({ store, state, dispatch, location }) => {
   const [activeKey, setActiveKey] = useState('')
 
   useEffect(() => {
@@ -73,9 +74,7 @@ const App = ({ state, dispatch, location }) => {
               <Route
                 exact
                 path="/profile"
-                render={() => (
-                  <Profile posts={state.profile.posts} dispatch={dispatch} />
-                )}
+                render={() => <Profile store={store} />}
               />
               <Route
                 exact
@@ -85,13 +84,7 @@ const App = ({ state, dispatch, location }) => {
               <Route
                 exact
                 path="/dialogs"
-                render={() => (
-                  <Dialogs
-                    dispatch={dispatch}
-                    dialogs={state.dialogs.dialogs}
-                    usersArr={state.users.usersArr}
-                  />
-                )}
+                render={() => <DialogsContainer store={store} />}
               />
               <Route component={PageNotFound} />
             </Switch>

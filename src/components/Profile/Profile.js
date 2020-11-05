@@ -1,13 +1,13 @@
-import React from "react";
-import { MyPosts } from "./MyPosts/MyPosts";
-import logo from "../../logo.png";
+import React from 'react'
+import { MyPostsContainer } from './MyPosts/MyPostsContainer'
+import logo from '../../logo.png'
 
-export const Profile = ({ posts, dispatch }) => {
+export const Profile = ({ store }) => {
   return (
     <div>
       <img src={logo} />
       <h1>Profile</h1>
-      <MyPosts posts={posts} dispatch={dispatch} />
+      <MyPostsContainer store={store} />
     </div>
-  );
-};
+  )
+}
