@@ -11,16 +11,15 @@ import './App.css'
 import logo from './logo.png'
 import { Profile } from './components/Profile/Profile'
 import { Users } from './components/Users/Users'
-import { Dialogs } from './components/Dialogs/Dialogs'
+import { DialogsContainer } from './components/Dialogs/DialogsContainer'
 import { Route, Switch, Link } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
 import { HomePage } from './components/HomePage/HomePage'
-import { DialogsContainer } from './components/Dialogs/DialogsContainer'
 
 const { Header, Content, Footer, Sider } = Layout
 const { Item } = Menu
 
-const App = ({ store, state, dispatch, location }) => {
+const App = ({ location }) => {
   const [activeKey, setActiveKey] = useState('')
 
   useEffect(() => {
@@ -71,20 +70,12 @@ const App = ({ store, state, dispatch, location }) => {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route
-                exact
-                path="/profile"
-                render={() => <Profile store={store} />}
-              />
-              <Route
-                exact
-                path="/users"
-                render={() => <Users users={state.users.usersArr} />}
-              />
+              <Route exact path="/profile" render={() => <Profile />} />
+              <Route exact path="/users" render={() => <Users />} />
               <Route
                 exact
                 path="/dialogs"
-                render={() => <DialogsContainer store={store} />}
+                render={() => <DialogsContainer />}
               />
               <Route component={PageNotFound} />
             </Switch>

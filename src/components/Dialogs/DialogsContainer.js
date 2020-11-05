@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { newMessageActionCreator } from '../../redux/dialogs-reducer'
 import { Dialogs } from './Dialogs'
+import { StoreContext } from '../../StoreContext'
 
-export const DialogsContainer = ({ store }) => {
+export const DialogsContainer = () => {
+  const store = useContext(StoreContext)
+
   const addMessage = (text) => {
     store.dispatch(newMessageActionCreator(text))
   }
