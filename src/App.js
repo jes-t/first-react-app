@@ -10,7 +10,7 @@ import 'antd/dist/antd.css'
 import './App.css'
 import logo from './logo.png'
 import { Profile } from './components/Profile/Profile'
-import { Users } from './components/Users/Users'
+import { UsersContainer } from './components/Users/UsersContainer'
 import { DialogsContainer } from './components/Dialogs/DialogsContainer'
 import { Route, Switch, Link } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
@@ -71,7 +71,7 @@ const App = ({ location }) => {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/profile" render={() => <Profile />} />
-              <Route exact path="/users" render={() => <Users />} />
+              <Route exact path="/users" render={() => <UsersContainer />} />
               <Route
                 exact
                 path="/dialogs"

@@ -1,13 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Card, Avatar } from 'antd'
-import { StoreContext } from '../../StoreContext'
 
-export const Users = () => {
-  const store = useContext(StoreContext)
-
+export const Users = ({ usersArr }) => {
   return (
     <div>
-      {store.getState().users.usersArr.map((user) => {
+      {usersArr.map((user) => {
         return (
           <Card style={{ width: 300, marginTop: 16 }} key={user.id}>
             <Card.Meta
