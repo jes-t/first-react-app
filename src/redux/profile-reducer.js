@@ -15,11 +15,14 @@ export const profileReducer = (state = initialState, action) => {
         id: state.length,
         text: action.text,
       }
-      state.posts.push(obj)
-      break
+      return {
+        ...state,
+        posts: [...state.posts, obj],
+      }
     }
+    default:
+      return state
   }
-  return state
 }
 
 export const addPostActionCreator = (text) => ({
