@@ -21,6 +21,7 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
             </Card>
             {user.followed ? (
               <Buttons
+                type="dashed"
                 onClick={() => {
                   unfollow(user.id)
                 }}
@@ -29,6 +30,7 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
               </Buttons>
             ) : (
               <Buttons
+                type="dashed"
                 onClick={() => {
                   follow(user.id)
                 }}
@@ -43,5 +45,5 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
   )
 }
 const Buttons = styled(Button)`
-  margin: 5px;
+  margin-top: 5px;
 `
