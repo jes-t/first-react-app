@@ -1,7 +1,12 @@
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET_USERS'
+
 const initialState = {
   usersArr: [
     {
       id: 0,
+      followed: true,
       firstName: 'Jems',
       lastName: 'Band',
       description: "I'm a frontend developer",
@@ -10,6 +15,7 @@ const initialState = {
     },
     {
       id: 1,
+      followed: false,
       firstName: 'Nyuta',
       lastName: 'Len',
       description: "I'm a backend developer",
@@ -18,6 +24,7 @@ const initialState = {
     },
     {
       id: 2,
+      followed: false,
       firstName: 'Rob',
       lastName: 'Stark',
       description: "I'm a full-stack developer",
@@ -28,5 +35,41 @@ const initialState = {
 }
 
 export const usersArrReducer = (state = initialState, action) => {
-  return state
+  switch (action.type) {
+    case FOLLOW:
+      return {
+        ...state,
+        usersArr: state.usersArr.map((user) => {
+          if (user.id === action.userId) {
+            return { ...user, followed: true }
+          }
+          return user
+        }),
+      }
+
+    case UNFOLLOW:
+      return {
+        ...state,
+        usersArr: state.usersArr.map((user) => {
+          if (user.id === action.userId) {
+            return { ...user, followed: false }
+          }
+          return user
+        }),
+      }
+    case SET_USERS:
+      return { ...state, usersArr: [...state.usersArr, ...action.users] }
+
+    default:
+      return state
+  }
+}
+export const followAC = (userId) => {
+  return { type: FOLLOW, userId }
+}
+export const unfollowAC = (userId) => {
+  return { type: UNFOLLOW, userId }
+}
+export const setUsersAC = (users) => {
+  return { type: SET_USERS, users }
 }
