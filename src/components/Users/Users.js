@@ -6,6 +6,27 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
   if (usersArr.lenght === 0) {
     setUsers()
   }
+  const renderSubscribeButton = (user) => {
+    return user.followed ? (
+      <Button
+        type="dashed"
+        onClick={() => {
+          unfollow(user.id)
+        }}
+      >
+        Отписаться
+      </Button>
+    ) : (
+      <Button
+        type="dashed"
+        onClick={() => {
+          follow(user.id)
+        }}
+      >
+        Подписаться
+      </Button>
+    )
+  }
 
   return (
     <div>
@@ -19,31 +40,13 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
                 description={user.description}
               />
             </Card>
-            {user.followed ? (
-              <Buttons
-                type="dashed"
-                onClick={() => {
-                  unfollow(user.id)
-                }}
-              >
-                Отписаться
-              </Buttons>
-            ) : (
-              <Buttons
-                type="dashed"
-                onClick={() => {
-                  follow(user.id)
-                }}
-              >
-                Подписаться
-              </Buttons>
-            )}
+            <SubscribeButton>{renderSubscribeButton(user)}</SubscribeButton>
           </div>
         )
       })}
     </div>
   )
 }
-const Buttons = styled(Button)`
-  margin-top: 5px;
+const SubscribeButton = styled.div`
+  padding-top: 5px;
 `
