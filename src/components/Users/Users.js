@@ -1,10 +1,16 @@
 import React from 'react'
 import { Card, Avatar, Button } from 'antd'
 import styled from 'styled-components'
+import * as axios from 'axios'
+import userPhoto from '../../userLogo.png'
 
 export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
-  if (usersArr.lenght === 0) {
-    setUsers()
+  if (usersArr.length === 0) {
+    axios
+      .get('https://social-network.samuraijs.com/api/1.0/users')
+      .then((response) => {
+        setUsers(response.data.items)
+      })
   }
   const renderSubscribeButton = (user) => {
     return user.followed ? (
@@ -27,6 +33,9 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
       </Button>
     )
   }
+  const renderUserPhoto = (user) => {
+    return user.photos.small != null ? user.photos.small : userPhoto
+  }
 
   return (
     <div>
@@ -35,9 +44,9 @@ export const Users = ({ usersArr, follow, unfollow, setUsers }) => {
           <div>
             <Card style={{ width: 300, marginTop: 16 }} key={user.id}>
               <Card.Meta
-                avatar={<Avatar size={70} src={user.avatarUrl} />}
-                title={`${user.firstName} ${user.lastName}`}
-                description={user.description}
+                avatar={<Avatar size={70} src={renderUserPhoto(user)} />}
+                title={`${user.name}`}
+                description={user.status}
               />
             </Card>
             <SubscribeButton>{renderSubscribeButton(user)}</SubscribeButton>

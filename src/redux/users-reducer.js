@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS'
 
 const initialState = {
   usersArr: [
+    /*
     {
       id: 0,
       followed: true,
@@ -30,7 +31,7 @@ const initialState = {
       description: "I'm a full-stack developer",
       avatarUrl:
         'https://sun9-25.userapi.com/iygXKWZTY6JJq7MHonu84abE2JNwtvyeVtBH3Q/37ktCVugVA0.jpg',
-    },
+    },*/
   ],
 }
 
