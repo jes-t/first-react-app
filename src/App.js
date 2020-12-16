@@ -32,8 +32,6 @@ const App = ({ location }) => {
     }
   }, [location])
 
-  console.log(activeKey)
-
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider>
