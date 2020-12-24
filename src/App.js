@@ -68,6 +68,7 @@ const App = ({ location }) => {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
+              <Route path="/profile/:id" render={() => <Profile />} />
               <Route exact path="/profile" render={() => <Profile />} />
               <Route exact path="/users" render={() => <UsersContainer />} />
               <Route
@@ -75,7 +76,7 @@ const App = ({ location }) => {
                 path="/dialogs"
                 render={() => <DialogsContainer />}
               />
-              <Route component={PageNotFound} />
+              {/* <Route component={PageNotFound} /> */}
             </Switch>
           </div>
         </Content>

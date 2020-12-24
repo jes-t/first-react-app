@@ -1,4 +1,5 @@
 const ADD_POST = 'ADD_POST'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 const initialState = {
   posts: [
@@ -6,6 +7,7 @@ const initialState = {
     { id: 1, text: 'Мой второй пост' },
     { id: 2, text: 'Мой третий пост' },
   ],
+  profile: null,
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -20,6 +22,9 @@ export const profileReducer = (state = initialState, action) => {
         posts: [...state.posts, obj],
       }
     }
+    case SET_USER_PROFILE: {
+      return { ...state, profile: action.profile }
+    }
     default:
       return state
   }
@@ -29,3 +34,9 @@ export const addPostActionCreator = (text) => ({
   text,
   type: ADD_POST,
 })
+export const setUserProfile = (profile) => {
+  return {
+    type: SET_USER_PROFILE,
+    profile,
+  }
+}

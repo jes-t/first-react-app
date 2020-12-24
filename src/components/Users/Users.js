@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Avatar, Pagination } from 'antd'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const Users = ({
   usersArr,
@@ -29,15 +30,22 @@ export const Users = ({
         showSizeChanger={false}
       />
       {usersArr.map((user) => {
+        //     `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`
         return (
           <div>
-            <Card style={{ width: 300, marginTop: 16 }} key={user.id}>
-              <Card.Meta
-                avatar={<Avatar size={70} src={renderUserPhoto(user)} />}
-                title={`${user.name}`}
-                description={user.status}
-              />
-            </Card>
+            <Link to={`/profile/${user.id}`}>
+              <Card
+                hoverable
+                style={{ width: 300, marginTop: 16 }}
+                key={user.id}
+              >
+                <Card.Meta
+                  avatar={<Avatar size={70} src={renderUserPhoto(user)} />}
+                  title={`${user.name}`}
+                  description={user.status}
+                />
+              </Card>
+            </Link>
             <SubscribeButton>{renderSubscribeButton(user)}</SubscribeButton>
           </div>
         )
