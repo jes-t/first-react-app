@@ -63,7 +63,7 @@ export const Users = ({
       <UsersListContainer>
         {isFetching && (
           <SpinContainer>
-            <Spin tip="Loading..." size="large" />{' '}
+            <Spin tip="Loading..." size="large" />
           </SpinContainer>
         )}
         <UsersList isFetching={isFetching}>

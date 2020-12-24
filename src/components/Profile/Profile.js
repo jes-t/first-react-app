@@ -5,6 +5,8 @@ import logo from '../../logo.png'
 import * as axios from 'axios'
 import { setUserProfile } from '../../redux/profile-reducer'
 import { useParams } from 'react-router-dom'
+import { Spin } from 'antd'
+import styled from 'styled-components'
 
 const ProfileContainer = ({ profile, setUserProfile }) => {
   const params = useParams()
@@ -20,10 +22,22 @@ const ProfileContainer = ({ profile, setUserProfile }) => {
         setUserProfile(response.data)
       })
   }, [])
-
+  if (!profile) {
+    return (
+      <SpinContainer>
+        <Spin tip="Loading..." size="large" />
+      </SpinContainer>
+    )
+  }
   return (
     <div>
-      <div>{profile ? profile.fullName : 'Имя пользователя'}</div>
+      <div>
+        <h1>{profile ? profile.fullName : 'Имя пользователя'} </h1>
+        {`About me: ${profile.aboutMe}`}
+        <div>
+          <img src={profile.photos.small} />
+        </div>
+      </div>
       <img src={logo} />
       <h1>Profile</h1>
       <MyPostsContainer />
@@ -43,3 +57,9 @@ export const Profile = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ProfileContainer)
+
+const SpinContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`
