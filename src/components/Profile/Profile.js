@@ -11,7 +11,10 @@ import styled from 'styled-components'
 const ProfileContainer = ({ profile, setUserProfile }) => {
   const params = useParams()
 
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
+    setLoading(true)
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0//profile/${
@@ -19,10 +22,14 @@ const ProfileContainer = ({ profile, setUserProfile }) => {
         }`
       )
       .then((response) => {
-        setUserProfile(response.data)
+        setUserProfile(response?.data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        setLoading(false)
       })
   }, [])
-  if (!profile) {
+  if (loading) {
     return (
       <SpinContainer>
         <Spin tip="Loading..." size="large" />
@@ -32,10 +39,10 @@ const ProfileContainer = ({ profile, setUserProfile }) => {
   return (
     <div>
       <div>
-        <h1>{profile ? profile.fullName : 'Имя пользователя'} </h1>
-        {`About me: ${profile.aboutMe}`}
+        <h1>{profile ? profile.fullName : 'Users name'} </h1>
+        {`About me: ${profile?.aboutMe}`}
         <div>
-          <img src={profile.photos.small} />
+          <img src={profile?.photos?.small} />
         </div>
       </div>
       <img src={logo} />

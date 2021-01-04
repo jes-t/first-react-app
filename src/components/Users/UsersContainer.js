@@ -31,6 +31,9 @@ export const UsersAPIComponent = ({
         .get(
           `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`
         )
+        .catch((error) => {
+          console.log(error)
+        })
         .then((response) => {
           toggleIsFetching(false)
           setUsers(response.data.items)
@@ -45,6 +48,9 @@ export const UsersAPIComponent = ({
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`
       )
+      .catch((error) => {
+        console.log(error)
+      })
       .then((response) => {
         toggleIsFetching(false)
         setUsers(response.data.items)

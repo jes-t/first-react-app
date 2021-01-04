@@ -17,7 +17,6 @@ import { Route, Switch, Link } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
 import { HomePage } from './components/HomePage/HomePage'
 import { LoginContainer } from './components/Login/LoginContainer'
-import { Login } from './components/Login/Login'
 import styled from 'styled-components'
 
 const { Header, Content, Footer, Sider } = Layout
@@ -44,19 +43,13 @@ const App = ({ location }) => {
         </div>
         <StyledMenu theme="dark" selectedKeys={[activeKey]}>
           <Item key="/" icon={<HomeOutlined />}>
-            <Link exact to="/">
-              Home
-            </Link>
+            <Link to="/">Home</Link>
           </Item>
           <Item key="/profile" icon={<ProfileOutlined />}>
-            <Link exact to="/profile">
-              Profile
-            </Link>
+            <Link to="/profile">Profile</Link>
           </Item>
           <Item key="/users" icon={<UsergroupAddOutlined />}>
-            <Link exact to="/users">
-              Users
-            </Link>
+            <Link to="/users">Users</Link>
           </Item>
           <Item key="/dialogs" icon={<CommentOutlined />}>
             <Link to="/dialogs">Dialogs</Link>
@@ -84,11 +77,11 @@ const App = ({ location }) => {
                 render={() => <DialogsContainer />}
               />
               <Route exact path="/login" render={() => <LoginContainer />} />
-              {/* <Route component={PageNotFound} /> */}
+              <Route path="*" component={PageNotFound} />
             </Switch>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Котики!</Footer>
+        <Footer style={{ textAlign: 'center' }}></Footer>
       </Layout>
     </Layout>
   )
