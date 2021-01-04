@@ -4,6 +4,12 @@ import userPhoto from '../../userLogo.png'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+const i18n = {
+  total: 'Total users:',
+  follow: 'Follow',
+  unfollow: 'Unfollow',
+}
+
 export const Users = ({
   usersArr,
   pageSize,
@@ -19,7 +25,7 @@ export const Users = ({
     pages.push(i)
   }
   const showTotal = () => {
-    return `Всего ${totalUsersCount} пользователей`
+    return `${i18n.total} ${totalUsersCount}`
   }
 
   const renderSubscribeButton = (user) => {
@@ -31,7 +37,7 @@ export const Users = ({
           unfollow(user.id)
         }}
       >
-        Отписаться
+        {i18n.unfollow}
       </Button>
     ) : (
       <Button
@@ -41,7 +47,7 @@ export const Users = ({
           follow(user.id)
         }}
       >
-        Подписаться
+        {i18n.follow}
       </Button>
     )
   }
@@ -69,13 +75,9 @@ export const Users = ({
         <UsersList isFetching={isFetching}>
           {usersArr.map((user) => {
             return (
-              <div>
+              <div key={user.id}>
                 <Link to={`/profile/${user.id}`}>
-                  <Card
-                    hoverable
-                    style={{ width: 300, marginTop: 16 }}
-                    key={user.id}
-                  >
+                  <Card hoverable style={{ width: 300, marginTop: 16 }}>
                     <Card.Meta
                       avatar={<Avatar size={70} src={renderUserPhoto(user)} />}
                       title={`${user.name}`}
