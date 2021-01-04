@@ -5,6 +5,7 @@ import {
   ProfileOutlined,
   UsergroupAddOutlined,
   CommentOutlined,
+  SettingOutlined,
 } from '@ant-design/icons'
 import 'antd/dist/antd.css'
 import './App.css'
@@ -15,6 +16,9 @@ import { DialogsContainer } from './components/Dialogs/DialogsContainer'
 import { Route, Switch, Link } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
 import { HomePage } from './components/HomePage/HomePage'
+import { LoginContainer } from './components/Login/LoginContainer'
+import { Login } from './components/Login/Login'
+import styled from 'styled-components'
 
 const { Header, Content, Footer, Sider } = Layout
 const { Item } = Menu
@@ -38,7 +42,7 @@ const App = ({ location }) => {
         <div className="logo">
           <img src={logo} />
         </div>
-        <Menu theme="dark" selectedKeys={[activeKey]}>
+        <StyledMenu theme="dark" selectedKeys={[activeKey]}>
           <Item key="/" icon={<HomeOutlined />}>
             <Link exact to="/">
               Home
@@ -57,7 +61,10 @@ const App = ({ location }) => {
           <Item key="/dialogs" icon={<CommentOutlined />}>
             <Link to="/dialogs">Dialogs</Link>
           </Item>
-        </Menu>
+          <Item key="/login" icon={<SettingOutlined />}>
+            <Link to="/login">Login</Link>
+          </Item>
+        </StyledMenu>
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }} />
@@ -76,6 +83,7 @@ const App = ({ location }) => {
                 path="/dialogs"
                 render={() => <DialogsContainer />}
               />
+              <Route exact path="/login" render={() => <LoginContainer />} />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
           </div>
@@ -87,3 +95,14 @@ const App = ({ location }) => {
 }
 
 export default App
+
+const StyledMenu = styled(Menu)`
+  min-height: calc(100% - 120px);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+
+  .ant-menu-item:last-child {
+    margin-top: auto;
+  }
+`

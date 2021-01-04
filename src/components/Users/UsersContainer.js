@@ -52,17 +52,15 @@ export const UsersAPIComponent = ({
   }
 
   return (
-    <>
-      <Users
-        usersArr={usersArr}
-        pageSize={pageSize}
-        totalUsersCount={totalUsersCount}
-        onPageChanged={onPageChanged}
-        isFetching={isFetching}
-        follow={follow}
-        unfollow={unfollow}
-      />
-    </>
+    <Users
+      usersArr={usersArr}
+      pageSize={pageSize}
+      totalUsersCount={totalUsersCount}
+      onPageChanged={onPageChanged}
+      isFetching={isFetching}
+      follow={follow}
+      unfollow={unfollow}
+    />
   )
 }
 
