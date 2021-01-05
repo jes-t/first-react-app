@@ -8,8 +8,8 @@ import {
   setTotalUsersCountAC,
   toggleIsFetchingAC,
 } from '../../redux/users-reducer'
-import * as axios from 'axios'
 import { Users } from './Users'
+import { userAPI } from '../../api/api'
 
 export const UsersAPIComponent = ({
   usersArr,
@@ -27,36 +27,20 @@ export const UsersAPIComponent = ({
   useEffect(() => {
     if (usersArr.length === 0) {
       toggleIsFetching(true)
-      axios
-        .get(
-          `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
-          { withCredentials: true }
-        )
-        .catch((error) => {
-          console.log(error)
-        })
-        .then((response) => {
-          toggleIsFetching(false)
-          setUsers(response.data.items)
-          setTotalUsersCount(response.data.totalCount)
-        })
+      userAPI.getUsers(currentPage, pageSize).then((data) => {
+        toggleIsFetching(false)
+        setUsers(data.items)
+        setTotalUsersCount(data.totalCount)
+      })
     }
   }, [])
   const onPageChanged = (pageNumber) => {
     toggleIsFetching(true)
     setCurrentPage(pageNumber)
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`,
-        { withCredentials: true }
-      )
-      .catch((error) => {
-        console.log(error)
-      })
-      .then((response) => {
-        toggleIsFetching(false)
-        setUsers(response.data.items)
-      })
+    userAPI.getUsers(pageNumber, pageSize).then((data) => {
+      toggleIsFetching(false)
+      setUsers(data.items)
+    })
   }
 
   return (
