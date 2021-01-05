@@ -3,6 +3,7 @@ import { Card, Avatar, Pagination, Spin, Button } from 'antd'
 import userPhoto from '../../userLogo.png'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import * as axios from 'axios'
 
 const i18n = {
   total: 'Total users:',
@@ -34,7 +35,24 @@ export const Users = ({
         type="dashed"
         disabled={isFetching}
         onClick={() => {
-          unfollow(user.id)
+          axios
+            .delete(
+              `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+              {
+                withCredentials: true,
+                headers: {
+                  'API-KEY': 'ed4a67f8-9eef-4f4c-86ad-a0230918bd68',
+                },
+              }
+            )
+            .catch((error) => {
+              console.log(error)
+            })
+            .then((response) => {
+              if (response.data.resultCode === 0) {
+                unfollow(user.id)
+              }
+            })
         }}
       >
         {i18n.unfollow}
@@ -44,7 +62,25 @@ export const Users = ({
         type="dashed"
         disabled={isFetching}
         onClick={() => {
-          follow(user.id)
+          axios
+            .post(
+              `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+              {},
+              {
+                withCredentials: true,
+                headers: {
+                  'API-KEY': 'ed4a67f8-9eef-4f4c-86ad-a0230918bd68',
+                },
+              }
+            )
+            .catch((error) => {
+              console.log(error)
+            })
+            .then((response) => {
+              if (response.data.resultCode === 0) {
+                follow(user.id)
+              }
+            })
         }}
       >
         {i18n.follow}
