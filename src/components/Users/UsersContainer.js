@@ -29,7 +29,8 @@ export const UsersAPIComponent = ({
       toggleIsFetching(true)
       axios
         .get(
-          `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`
+          `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+          { withCredentials: true }
         )
         .catch((error) => {
           console.log(error)
@@ -46,7 +47,8 @@ export const UsersAPIComponent = ({
     setCurrentPage(pageNumber)
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`,
+        { withCredentials: true }
       )
       .catch((error) => {
         console.log(error)
