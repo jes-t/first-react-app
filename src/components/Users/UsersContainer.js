@@ -1,49 +1,32 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
-  followAC,
-  unfollowAC,
-  setUsersAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  toggleIsFetchingAC,
-  toggleFollowingProgress,
+  setCurrentPage,
+  getUsers,
+  followThunk,
+  unfollowThunk,
 } from '../../redux/users-reducer'
 import { Users } from './Users'
-import { userAPI } from '../../api/api'
 
 export const UsersAPIComponent = ({
   usersArr,
-  follow,
-  unfollow,
-  setUsers,
-  setCurrentPage,
   pageSize,
+  setCurrentPage,
   totalUsersCount,
   currentPage,
-  setTotalUsersCount,
   isFetching,
-  toggleIsFetching,
-  toggleFollowingProgress,
   followingInProgress,
+  getUsers,
+  followThunk,
+  unfollowThunk,
 }) => {
   useEffect(() => {
     if (usersArr.length === 0) {
-      toggleIsFetching(true)
-      userAPI.getUsers(currentPage, pageSize).then((data) => {
-        toggleIsFetching(false)
-        setUsers(data.items)
-        setTotalUsersCount(data.totalCount)
-      })
+      getUsers(currentPage, pageSize)
     }
   }, [])
   const onPageChanged = (pageNumber) => {
-    toggleIsFetching(true)
-    setCurrentPage(pageNumber)
-    userAPI.getUsers(pageNumber, pageSize).then((data) => {
-      toggleIsFetching(false)
-      setUsers(data.items)
-    })
+    getUsers(pageNumber, pageSize)
   }
 
   return (
@@ -53,10 +36,9 @@ export const UsersAPIComponent = ({
       totalUsersCount={totalUsersCount}
       onPageChanged={onPageChanged}
       isFetching={isFetching}
-      follow={follow}
-      unfollow={unfollow}
-      toggleFollowingProgress={toggleFollowingProgress}
       followingInProgress={followingInProgress}
+      followThunk={followThunk}
+      unfollowThunk={unfollowThunk}
     />
   )
 }
@@ -72,13 +54,10 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  follow: followAC,
-  unfollow: unfollowAC,
-  setUsers: setUsersAC,
-  setCurrentPage: setCurrentPageAC,
-  setTotalUsersCount: setTotalUsersCountAC,
-  toggleIsFetching: toggleIsFetchingAC,
-  toggleFollowingProgress,
+  setCurrentPage,
+  getUsers,
+  followThunk,
+  unfollowThunk,
 }
 
 export const UsersContainer = connect(

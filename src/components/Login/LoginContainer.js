@@ -1,21 +1,13 @@
 import React, { useEffect } from 'react'
 import { Login } from './Login'
 import { connect } from 'react-redux'
-import { setAuthUserData } from '../../redux/auth-reducer'
-import { userAPI } from '../../api/api'
+import { getAuth } from '../../redux/auth-reducer'
 
-export const LoginShellContainer = ({ setAuthUserData, login, isAuth }) => {
+export const LoginShellContainer = ({ getAuth, login, isAuth }) => {
   useEffect(() => {
-    userAPI.getAuthMe().then((data) => {
-      if (data.resultCode === 0) {
-        const { id, email, login } = data.data
-        setAuthUserData({ id, login, email })
-      }
-    })
+    getAuth()
   }, [])
-  return (
-    <Login setAuthUserData={setAuthUserData} isAuth={isAuth} login={login} />
-  )
+  return <Login isAuth={isAuth} login={login} />
 }
 const mapStateToProps = (state) => {
   return {
@@ -24,7 +16,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  setAuthUserData,
+  getAuth,
 }
 export const LoginContainer = connect(
   mapStateToProps,

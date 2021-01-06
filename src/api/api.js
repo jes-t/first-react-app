@@ -20,20 +20,23 @@ export const userAPI = {
   getAuthMe() {
     return instance.get(`auth/me`).then((response) => response.data)
   },
-  postFollow(user) {
+  postFollow(userId) {
     return instance
-      .post(`follow/${user.id}`, {})
+      .post(`follow/${userId}`, {})
       .catch((error) => {
         console.log(error)
       })
       .then((response) => response.data)
   },
-  deleteFollow(user) {
+  deleteFollow(userId) {
     return instance
-      .delete(`follow/${user.id}`)
+      .delete(`follow/${userId}`)
       .catch((error) => {
         console.log(error)
       })
       .then((response) => response.data)
+  },
+  getProfile(params) {
+    return instance.get(`profile/${params.id ? params.id : 13090}`)
   },
 }

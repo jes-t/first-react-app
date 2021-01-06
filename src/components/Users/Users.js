@@ -3,7 +3,6 @@ import { Card, Avatar, Pagination, Button, List } from 'antd'
 import userPhoto from '../../userLogo.png'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { userAPI } from '../../api/api'
 
 const i18n = {
   total: 'Total users:',
@@ -17,10 +16,9 @@ export const Users = ({
   totalUsersCount,
   onPageChanged,
   isFetching,
-  follow,
-  unfollow,
   followingInProgress,
-  toggleFollowingProgress,
+  followThunk,
+  unfollowThunk,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize)
   let pages = []
@@ -39,13 +37,7 @@ export const Users = ({
           isFetching || followingInProgress.some((id) => id === user.id)
         }
         onClick={() => {
-          toggleFollowingProgress(true, user.id)
-          userAPI.deleteFollow(user).then((data) => {
-            if (data.resultCode === 0) {
-              unfollow(user.id)
-            }
-            toggleFollowingProgress(false, user.id)
-          })
+          unfollowThunk(user.id)
         }}
       >
         {i18n.unfollow}
@@ -57,13 +49,7 @@ export const Users = ({
           isFetching || followingInProgress.some((id) => id === user.id)
         }
         onClick={() => {
-          toggleFollowingProgress(true, user.id)
-          userAPI.postFollow(user).then((data) => {
-            if (data.resultCode === 0) {
-              follow(user.id)
-            }
-            toggleFollowingProgress(false, user.id)
-          })
+          followThunk(user.id)
         }}
       >
         {i18n.follow}
