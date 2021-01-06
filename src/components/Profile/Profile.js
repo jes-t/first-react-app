@@ -2,32 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { MyPostsContainer } from './MyPosts/MyPostsContainer'
 import logo from '../../logo.png'
-import * as axios from 'axios'
-import { setUserProfile } from '../../redux/profile-reducer'
+import { getProfileThunk } from '../../redux/profile-reducer'
 import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 import styled from 'styled-components'
 
-const ProfileContainer = ({ profile, setUserProfile }) => {
+const ProfileContainer = ({ profile, getProfileThunk }) => {
   const params = useParams()
 
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0//profile/${
-          params.id ? params.id : 13090
-        }`
-      )
-      .then((response) => {
-        setUserProfile(response?.data)
-        setLoading(false)
-      })
-      .catch((error) => {
-        setLoading(false)
-      })
+    getProfileThunk(params, setLoading)
   }, [])
   if (loading) {
     return (
@@ -57,7 +43,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  setUserProfile,
+  getProfileThunk,
 }
 
 export const Profile = connect(

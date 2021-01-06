@@ -1,3 +1,5 @@
+import { userAPI } from '../api/api'
+
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
@@ -38,5 +40,20 @@ export const setUserProfile = (profile) => {
   return {
     type: SET_USER_PROFILE,
     profile,
+  }
+}
+
+export const getProfileThunk = (params, setLoading) => {
+  return (dispatch) => {
+    setLoading(true)
+    userAPI
+      .getProfile(params)
+      .then((response) => {
+        dispatch(setUserProfile(response?.data))
+        setLoading(false)
+      })
+      .catch((error) => {
+        setLoading(false)
+      })
   }
 }
