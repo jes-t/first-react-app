@@ -1,9 +1,8 @@
 import React from 'react'
-import { Card, Avatar, Pagination, Spin, Button } from 'antd'
+import { Card, Avatar, Pagination, Button, List } from 'antd'
 import userPhoto from '../../userLogo.png'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import * as axios from 'axios'
 import { userAPI } from '../../api/api'
 
 const i18n = {
@@ -20,6 +19,8 @@ export const Users = ({
   isFetching,
   follow,
   unfollow,
+  followingInProgress,
+  toggleFollowingProgress,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize)
   let pages = []
@@ -34,12 +35,16 @@ export const Users = ({
     return user.followed ? (
       <Button
         type="dashed"
-        disabled={isFetching}
+        disabled={
+          isFetching || followingInProgress.some((id) => id === user.id)
+        }
         onClick={() => {
+          toggleFollowingProgress(true, user.id)
           userAPI.deleteFollow(user).then((data) => {
             if (data.resultCode === 0) {
               unfollow(user.id)
             }
+            toggleFollowingProgress(false, user.id)
           })
         }}
       >
@@ -48,12 +53,16 @@ export const Users = ({
     ) : (
       <Button
         type="dashed"
-        disabled={isFetching}
+        disabled={
+          isFetching || followingInProgress.some((id) => id === user.id)
+        }
         onClick={() => {
+          toggleFollowingProgress(true, user.id)
           userAPI.postFollow(user).then((data) => {
             if (data.resultCode === 0) {
               follow(user.id)
             }
+            toggleFollowingProgress(false, user.id)
           })
         }}
       >
@@ -77,29 +86,24 @@ export const Users = ({
         showSizeChanger={false}
       />
       <UsersListContainer>
-        {isFetching && (
-          <SpinContainer>
-            <Spin tip="Loading..." size="large" />
-          </SpinContainer>
-        )}
-        <UsersList isFetching={isFetching}>
-          {usersArr.map((user) => {
-            return (
-              <div key={user.id}>
-                <Link to={`/profile/${user.id}`}>
-                  <Card hoverable style={{ width: 300, marginTop: 16 }}>
-                    <Card.Meta
-                      avatar={<Avatar size={70} src={renderUserPhoto(user)} />}
-                      title={`${user.name}`}
-                      description={user.status}
-                    />
-                  </Card>
-                </Link>
-                <SubscribeButton>{renderSubscribeButton(user)}</SubscribeButton>
-              </div>
-            )
-          })}
-        </UsersList>
+        <List
+          dataSource={usersArr}
+          loading={isFetching}
+          renderItem={(user) => (
+            <div key={user.id}>
+              <Link to={`/profile/${user.id}`}>
+                <Card hoverable style={{ width: 300, marginTop: 16 }}>
+                  <Card.Meta
+                    avatar={<Avatar size={70} src={renderUserPhoto(user)} />}
+                    title={`${user.name}`}
+                    description={user.status}
+                  />
+                </Card>
+              </Link>
+              <SubscribeButton>{renderSubscribeButton(user)}</SubscribeButton>
+            </div>
+          )}
+        />
       </UsersListContainer>
     </RootContainer>
   )
@@ -107,15 +111,8 @@ export const Users = ({
 const SubscribeButton = styled.div`
   padding-top: 5px;
 `
-const SpinContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-`
 const RootContainer = styled.div``
 const UsersListContainer = styled.div`
-  position: relative;
-`
-const UsersList = styled.div`
-  opacity: ${(props) => (props.isFetching ? 0.5 : 1)};
+  overflow: auto;
+  height: 70vh;
 `
