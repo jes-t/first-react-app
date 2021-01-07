@@ -19,6 +19,7 @@ export const UsersAPIComponent = ({
   getUsers,
   followThunk,
   unfollowThunk,
+  isAuth,
 }) => {
   useEffect(() => {
     if (usersArr.length === 0) {
@@ -39,6 +40,7 @@ export const UsersAPIComponent = ({
       followingInProgress={followingInProgress}
       followThunk={followThunk}
       unfollowThunk={unfollowThunk}
+      isAuth={isAuth}
     />
   )
 }
@@ -51,6 +53,7 @@ const mapStateToProps = (state) => {
     currentPage: state.users.currentPage,
     isFetching: state.users.isFetching,
     followingInProgress: state.users.followingInProgress,
+    isAuth: state.auth.isAuth,
   }
 }
 const mapDispatchToProps = {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Avatar, Pagination, Button, List } from 'antd'
 import userPhoto from '../../userLogo.png'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 const i18n = {
   total: 'Total users:',
@@ -19,6 +19,7 @@ export const Users = ({
   followingInProgress,
   followThunk,
   unfollowThunk,
+  isAuth,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize)
   let pages = []
@@ -56,6 +57,8 @@ export const Users = ({
       </Button>
     )
   }
+
+  if (!isAuth) return <Redirect to="/login" />
 
   const renderUserPhoto = (user) => {
     return user.photos.small != null ? user.photos.small : userPhoto
