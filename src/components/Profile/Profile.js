@@ -6,8 +6,9 @@ import { getProfileThunk } from '../../redux/profile-reducer'
 import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 import styled from 'styled-components'
-import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+//import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
+import { ProfileStatus } from './ProfileStatus'
 
 const ProfileContainer = ({ profile, getProfileThunk }) => {
   const params = useParams()
@@ -33,9 +34,10 @@ const ProfileContainer = ({ profile, getProfileThunk }) => {
         <div>
           <img src={profile?.photos?.small} />
         </div>
+        <ProfileStatus status={'Hello my friends'} />
       </div>
-      <img src={logo} />
-      <h1>Profile</h1>
+      {/* <img src={logo} /> */}
+      <h1>My Post</h1>
       <MyPostsContainer />
     </div>
   )
@@ -51,8 +53,8 @@ const mapDispatchToProps = {
 }
 
 export const Profile = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withAuthRedirect
+  connect(mapStateToProps, mapDispatchToProps)
+  //withAuthRedirect
 )(ProfileContainer)
 
 const SpinContainer = styled.div`
