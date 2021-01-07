@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { MyPostsContainer } from './MyPosts/MyPostsContainer'
 import logo from '../../logo.png'
 import { getProfileThunk } from '../../redux/profile-reducer'
-import { useParams, Redirect } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 import styled from 'styled-components'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 
-const ProfileContainer = ({ profile, isAuth, getProfileThunk }) => {
+const ProfileContainer = ({ profile, getProfileThunk }) => {
   const params = useParams()
 
   const [loading, setLoading] = useState(false)
@@ -22,8 +23,6 @@ const ProfileContainer = ({ profile, isAuth, getProfileThunk }) => {
       </SpinContainer>
     )
   }
-
-  if (!isAuth) return <Redirect to="/login" />
 
   return (
     <div>
@@ -40,10 +39,12 @@ const ProfileContainer = ({ profile, isAuth, getProfileThunk }) => {
     </div>
   )
 }
+
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
 const mapStateToProps = (state) => {
   return {
     profile: state.profile.profile,
-    isAuth: state.auth.isAuth,
   }
 }
 const mapDispatchToProps = {
@@ -53,7 +54,7 @@ const mapDispatchToProps = {
 export const Profile = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileContainer)
+)(AuthRedirectComponent)
 
 const SpinContainer = styled.div`
   position: absolute;

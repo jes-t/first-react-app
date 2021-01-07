@@ -7,6 +7,7 @@ import {
   unfollowThunk,
 } from '../../redux/users-reducer'
 import { Users } from './Users'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 
 export const UsersAPIComponent = ({
   usersArr,
@@ -19,7 +20,6 @@ export const UsersAPIComponent = ({
   getUsers,
   followThunk,
   unfollowThunk,
-  isAuth,
 }) => {
   useEffect(() => {
     if (usersArr.length === 0) {
@@ -40,10 +40,11 @@ export const UsersAPIComponent = ({
       followingInProgress={followingInProgress}
       followThunk={followThunk}
       unfollowThunk={unfollowThunk}
-      isAuth={isAuth}
     />
   )
 }
+
+const AuthRedirectComponent = withAuthRedirect(UsersAPIComponent)
 
 const mapStateToProps = (state) => {
   return {
@@ -53,7 +54,6 @@ const mapStateToProps = (state) => {
     currentPage: state.users.currentPage,
     isFetching: state.users.isFetching,
     followingInProgress: state.users.followingInProgress,
-    isAuth: state.auth.isAuth,
   }
 }
 const mapDispatchToProps = {
@@ -66,4 +66,4 @@ const mapDispatchToProps = {
 export const UsersContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UsersAPIComponent)
+)(AuthRedirectComponent)
