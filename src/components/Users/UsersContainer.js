@@ -7,6 +7,7 @@ import {
   unfollowThunk,
 } from '../../redux/users-reducer'
 import { Users } from './Users'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 
 export const UsersAPIComponent = ({
   usersArr,
@@ -43,6 +44,8 @@ export const UsersAPIComponent = ({
   )
 }
 
+const AuthRedirectComponent = withAuthRedirect(UsersAPIComponent)
+
 const mapStateToProps = (state) => {
   return {
     usersArr: state.users.usersArr,
@@ -63,4 +66,4 @@ const mapDispatchToProps = {
 export const UsersContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UsersAPIComponent)
+)(AuthRedirectComponent)
