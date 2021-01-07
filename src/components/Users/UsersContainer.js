@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import {
-  setCurrentPage,
-  getUsers,
-  followThunk,
-  unfollowThunk,
-} from '../../redux/users-reducer'
+import { getUsers, followThunk, unfollowThunk } from '../../redux/users-reducer'
 import { Users } from './Users'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from 'redux'
 
 export const UsersAPIComponent = ({
   usersArr,
   pageSize,
-  setCurrentPage,
   totalUsersCount,
   currentPage,
   isFetching,
@@ -44,8 +39,6 @@ export const UsersAPIComponent = ({
   )
 }
 
-const AuthRedirectComponent = withAuthRedirect(UsersAPIComponent)
-
 const mapStateToProps = (state) => {
   return {
     usersArr: state.users.usersArr,
@@ -57,13 +50,12 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  setCurrentPage,
   getUsers,
   followThunk,
   unfollowThunk,
 }
 
-export const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AuthRedirectComponent)
+export const UsersContainer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
+)(UsersAPIComponent)
