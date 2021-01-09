@@ -1,43 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input } from 'antd'
 
-export class ProfileStatus extends React.Component {
-  state = {
-    editMode: false,
-  }
-  activedEditMode = () => {
-    this.setState({
-      editMode: true,
-    })
-  }
-  deactivedEditMode = () => {
-    this.setState({
-      editMode: false,
-    })
+export const ProfileStatus = (props) => {
+  const [editMode, setEditMode] = useState(false)
+  const [status, setStatus] = useState('----')
+
+  const activedEditMode = () => {
+    if (props.userId === '13090' || props.userId === undefined) {
+      setEditMode(true)
+      setStatus('')
+    }
   }
 
-  render() {
-    return (
-      <div>
-        {!this.state.editMode && (
-          <div>
-            <span onDoubleClick={this.activedEditMode}>
-              {this.props.status}
-            </span>
-          </div>
-        )}
-        {this.state.editMode && (
-          <div>
-            <Input.TextArea
-              onBlur={this.deactivedEditMode}
-              value={this.props.status}
-              style={{ width: '300px' }}
-              autoSize
-              autoFocus
-            />
-          </div>
-        )}
-      </div>
-    )
+  const deactivedEditMode = () => {
+    setEditMode(false)
+    props.updateStatus(status)
   }
+
+  const onStatusChange = (e) => {
+    setStatus(e.currentTarget.value)
+  }
+
+  return (
+    <div>
+      {!editMode && (
+        <div>
+          <span onDoubleClick={activedEditMode}>{props.status || status}</span>
+        </div>
+      )}
+      {editMode && (
+        <Input.TextArea
+          onChange={onStatusChange}
+          onBlur={deactivedEditMode}
+          value={status}
+          style={{ width: '300px' }}
+          placeholder="_______"
+          autoSize
+          autoFocus
+        />
+      )}
+    </div>
+  )
 }

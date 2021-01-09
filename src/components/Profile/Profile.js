@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { MyPostsContainer } from './MyPosts/MyPostsContainer'
 import logo from '../../logo.png'
-import { getProfileThunk } from '../../redux/profile-reducer'
+import {
+  getProfileThunk,
+  getUserStatus,
+  updateStatus,
+} from '../../redux/profile-reducer'
 import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 import styled from 'styled-components'
@@ -10,13 +14,20 @@ import styled from 'styled-components'
 import { compose } from 'redux'
 import { ProfileStatus } from './ProfileStatus'
 
-const ProfileContainer = ({ profile, getProfileThunk }) => {
+const ProfileContainer = ({
+  profile,
+  status,
+  getProfileThunk,
+  getUserStatus,
+  updateStatus,
+}) => {
   const params = useParams()
 
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getProfileThunk(params, setLoading)
+    getUserStatus(params.id || 13090)
   }, [])
   if (loading) {
     return (
@@ -31,10 +42,15 @@ const ProfileContainer = ({ profile, getProfileThunk }) => {
       <div>
         <h1>{profile ? profile.fullName : 'Users name'} </h1>
         {`About me: ${profile?.aboutMe}`}
+
         <div>
           <img src={profile?.photos?.small} />
         </div>
-        <ProfileStatus status={'Hello my friends'} />
+        <ProfileStatus
+          status={status}
+          updateStatus={updateStatus}
+          userId={params.id}
+        />
       </div>
       {/* <img src={logo} /> */}
       <h1>My Post</h1>
@@ -46,10 +62,13 @@ const ProfileContainer = ({ profile, getProfileThunk }) => {
 const mapStateToProps = (state) => {
   return {
     profile: state.profile.profile,
+    status: state.profile.status,
   }
 }
 const mapDispatchToProps = {
   getProfileThunk,
+  getUserStatus,
+  updateStatus,
 }
 
 export const Profile = compose(
