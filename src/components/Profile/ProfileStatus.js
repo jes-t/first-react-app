@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input } from 'antd'
 
 export const ProfileStatus = (props) => {
   const [editMode, setEditMode] = useState(false)
-  const [status, setStatus] = useState('----')
+  const [status, setStatus] = useState('-')
 
   const activedEditMode = () => {
     if (props.userId === '13090' || props.userId === undefined) {
       setEditMode(true)
-      setStatus('')
+      // setStatus('')
     }
   }
 
@@ -20,6 +20,11 @@ export const ProfileStatus = (props) => {
   const onStatusChange = (e) => {
     setStatus(e.currentTarget.value)
   }
+  useEffect(() => {
+    if (props.status !== status) {
+      setStatus(status)
+    }
+  })
 
   return (
     <div>
@@ -34,7 +39,6 @@ export const ProfileStatus = (props) => {
           onBlur={deactivedEditMode}
           value={status}
           style={{ width: '300px' }}
-          placeholder="_______"
           autoSize
           autoFocus
         />
