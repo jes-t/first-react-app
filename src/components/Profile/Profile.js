@@ -42,7 +42,6 @@ const ProfileContainer = ({
       <div>
         <h1>{profile ? profile.fullName : 'Users name'} </h1>
         {`About me: ${profile?.aboutMe}`}
-
         <div>
           <img src={profile?.photos?.small} />
         </div>

@@ -1,48 +1,62 @@
-import React, { useState, useEffect } from 'react'
-import { Input } from 'antd'
+import React, { useState } from 'react'
+import { Input, Spin } from 'antd'
+import styled from 'styled-components'
+
+const i18n = { statusPlaceholder: 'Your status' }
 
 export const ProfileStatus = (props) => {
   const [editMode, setEditMode] = useState(false)
-  const [status, setStatus] = useState('-')
+  const [status, setStatus] = useState(props?.status)
+  const [loading, setLoading] = useState(false)
 
-  const activedEditMode = () => {
+  const handleDoubleClick = () => {
     if (props.userId === '13090' || props.userId === undefined) {
       setEditMode(true)
-      // setStatus('')
     }
   }
 
-  const deactivedEditMode = () => {
+  const handleInputBlur = () => {
     setEditMode(false)
-    props.updateStatus(status)
+    if (props.status !== status) {
+      props.updateStatus(status, setLoading)
+    }
   }
 
   const onStatusChange = (e) => {
     setStatus(e.currentTarget.value)
   }
-  useEffect(() => {
-    if (props.status !== status) {
-      setStatus(status)
-    }
-  })
 
   return (
-    <div>
-      {!editMode && (
-        <div>
-          <span onDoubleClick={activedEditMode}>{props.status || status}</span>
-        </div>
-      )}
-      {editMode && (
-        <Input.TextArea
+    <StyleContainer>
+      {editMode ? (
+        <Input
           onChange={onStatusChange}
-          onBlur={deactivedEditMode}
+          onBlur={handleInputBlur}
           value={status}
           style={{ width: '300px' }}
-          autoSize
           autoFocus
+          placeholder={'Status'}
         />
+      ) : (
+        <div>
+          {loading ? (
+            <Spin />
+          ) : (
+            <span
+              onDoubleClick={handleDoubleClick}
+              style={{ opacity: props.status ? 1 : 0.3, paddingLeft: '12px' }}
+            >
+              {status || i18n.statusPlaceholder}
+            </span>
+          )}
+        </div>
       )}
-    </div>
+    </StyleContainer>
   )
 }
+
+const StyleContainer = styled.div`
+  height: 40px;
+  align-items: center;
+  display: flex;
+`
