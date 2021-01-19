@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 export const LoginForm = (props) => {
   const onSubmit = (values) => {
-    debugger
     console.log('Received values of form: ', values)
   }
   return (
