@@ -11,7 +11,13 @@ export const LoginForm = (props) => {
     <StyledForm initialValues={{ remember: true }} onFinish={onSubmit}>
       <Form.Item
         name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        rules={[
+          {
+            pattern: '^[A-Za-z0-9.@]*$',
+            message: 'Use only latin symbols or numbers',
+          },
+          { required: true, message: 'Please input your Username!' },
+        ]}
       >
         <Input prefix={<UserOutlined />} placeholder="Username" />
       </Form.Item>
