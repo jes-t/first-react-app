@@ -10,7 +10,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 import styled from 'styled-components'
-//import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import { ProfileStatus } from './ProfileStatus'
 
@@ -71,8 +71,8 @@ const mapDispatchToProps = {
 }
 
 export const Profile = compose(
-  connect(mapStateToProps, mapDispatchToProps)
-  //withAuthRedirect
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
 )(ProfileContainer)
 
 const SpinContainer = styled.div`

@@ -14,7 +14,7 @@ export const Dialogs = ({ addMessage, dialogs, usersArr }) => {
 
   return (
     <MainContainer>
-      <Companions dialogs={dialogs} />
+      {/* <Companions dialogs={dialogs} />
       <Content>
         <Messages dialogs={dialogs} usersArr={usersArr} />
         <Input.TextArea
@@ -24,7 +24,7 @@ export const Dialogs = ({ addMessage, dialogs, usersArr }) => {
           value={textMessage}
           style={{ width: '300px' }}
         />
-      </Content>
+      </Content> */}
     </MainContainer>
   )
 }

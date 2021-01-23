@@ -6,20 +6,15 @@ import styled from 'styled-components'
 export const LoginForm = (props) => {
   const onSubmit = (values) => {
     console.log('Received values of form: ', values)
+    props.postLogin(values.email, values.password, values.rememberMe)
   }
   return (
     <StyledForm initialValues={{ remember: true }} onFinish={onSubmit}>
       <Form.Item
-        name="username"
-        rules={[
-          {
-            pattern: '^[A-Za-z0-9.@]*$',
-            message: 'Use only latin symbols or numbers',
-          },
-          { required: true, message: 'Please input your Username!' },
-        ]}
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Username" />
+        <Input prefix={<UserOutlined />} placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -28,7 +23,7 @@ export const LoginForm = (props) => {
         <Input.Password prefix={<LockOutlined />} placeholder="Password" />
       </Form.Item>
       <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
+        <Form.Item name="rememberMe" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
       </Form.Item>

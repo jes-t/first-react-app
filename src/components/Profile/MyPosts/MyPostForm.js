@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Input, Form, Button } from 'antd'
 import { requiredField, maxLengthCreator } from '../../../helpers/validators'
 
 export const MyPostsForm = ({ addPost }) => {
-  const [textInput, setTextInput] = useState('')
-  const [isDisableButton, setIsDisableButton] = useState(true)
   const [form] = Form.useForm()
 
-  const onEnter = () => {
-    addPost(textInput)
-    // setTextInput('')
-  }
   const onSubmit = (values) => {
-    console.log('Received values of form: ', values)
+    addPost(values.textInput)
+    form.setFieldsValue({
+      textInput: '',
+    })
   }
 
   return (
@@ -48,15 +45,20 @@ export const MyPostsForm = ({ addPost }) => {
           style={{ width: '300px' }}
         />
       </Form.Item>
-      <Form.Item style={{ marginBottom: 25 }}>
-        <Button
-          onClick={onEnter}
-          type="dashed"
-          htmlType="submit"
-          disabled={isDisableButton}
-        >
-          Add Post
-        </Button>
+      <Form.Item style={{ marginBottom: 25 }} shouldUpdate>
+        {() => (
+          <Button
+            type="dashed"
+            htmlType="submit"
+            disabled={
+              !form.isFieldsTouched(true) ||
+              !!form.getFieldsError().filter(({ errors }) => errors.length)
+                .length
+            }
+          >
+            Add Post
+          </Button>
+        )}
       </Form.Item>
     </Form>
   )
