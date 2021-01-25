@@ -8,7 +8,14 @@ const i18n = {
   authTitle: 'Please authorize.  ',
 }
 
-export const Login = ({ login, isAuth, postLogin, deleteLogout }) => {
+export const Login = ({
+  login,
+  isAuth,
+  postLogin,
+  deleteLogout,
+  errorMessage,
+  setErrorMessage,
+}) => {
   return (
     <div>
       {isAuth ? (
@@ -21,7 +28,11 @@ export const Login = ({ login, isAuth, postLogin, deleteLogout }) => {
       ) : (
         <div>
           <Link to="/login">{i18n.authTitle}</Link>
-          <LoginForm postLogin={postLogin} />{' '}
+          <LoginForm
+            postLogin={postLogin}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+          />
         </div>
       )}
     </div>
