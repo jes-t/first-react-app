@@ -17,9 +17,6 @@ export const userAPI = {
       })
       .then((response) => response.data)
   },
-  getAuthMe() {
-    return instance.get(`auth/me`).then((response) => response.data)
-  },
   postFollow(userId) {
     return instance
       .post(`follow/${userId}`, {})
@@ -46,5 +43,16 @@ export const profileAPI = {
   },
   updateStatus(status) {
     return instance.put(`profile/status/`, { status: status })
+  },
+}
+export const authAPI = {
+  getAuthMe() {
+    return instance.get(`auth/me`).then((response) => response.data)
+  },
+  postLogin(email, password, rememberMe = false) {
+    return instance.post('auth/login', { email, password, rememberMe })
+  },
+  deleteLogout() {
+    return instance.delete('auth/login')
   },
 }

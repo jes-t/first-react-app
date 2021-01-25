@@ -1,13 +1,26 @@
 import React, { useEffect } from 'react'
 import { Login } from './Login'
 import { connect } from 'react-redux'
-import { getAuth } from '../../redux/auth-reducer'
+import { getAuth, postLogin, deleteLogout } from '../../redux/auth-reducer'
 
-export const LoginShellContainer = ({ getAuth, login, isAuth }) => {
+export const LoginShellContainer = ({
+  getAuth,
+  login,
+  isAuth,
+  postLogin,
+  deleteLogout,
+}) => {
   useEffect(() => {
     getAuth()
   }, [])
-  return <Login isAuth={isAuth} login={login} />
+  return (
+    <Login
+      isAuth={isAuth}
+      login={login}
+      postLogin={postLogin}
+      deleteLogout={deleteLogout}
+    />
+  )
 }
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +30,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
   getAuth,
+  postLogin,
+  deleteLogout,
 }
 export const LoginContainer = connect(
   mapStateToProps,

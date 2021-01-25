@@ -18,7 +18,7 @@ export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST: {
       const obj = {
-        id: state.length,
+        id: state.posts.length,
         text: action.text,
       }
       return {
@@ -68,11 +68,13 @@ export const getProfileThunk = (params, setLoading) => {
       })
   }
 }
+
 export const getUserStatus = (userId) => (dispatch) => {
   profileAPI.getStatus(userId).then((response) => {
     dispatch(setStatus(response.data))
   })
 }
+
 export const updateStatus = (status, setLoading) => (dispatch) => {
   setLoading(true)
   profileAPI.updateStatus(status).then((response) => {
