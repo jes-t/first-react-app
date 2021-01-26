@@ -2,14 +2,12 @@ import React, { useEffect } from 'react'
 import { Login } from './Login'
 import { connect } from 'react-redux'
 import {
-  getAuth,
   postLogin,
   deleteLogout,
   setErrorMessage,
 } from '../../redux/auth-reducer'
 
 export const LoginShellContainer = ({
-  getAuth,
   login,
   isAuth,
   postLogin,
@@ -17,9 +15,6 @@ export const LoginShellContainer = ({
   errorMessage,
   setErrorMessage,
 }) => {
-  useEffect(() => {
-    getAuth()
-  }, [])
   return (
     <Login
       isAuth={isAuth}
@@ -39,7 +34,6 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  getAuth,
   postLogin,
   deleteLogout,
   setErrorMessage,

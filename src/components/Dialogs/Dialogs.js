@@ -14,6 +14,7 @@ export const Dialogs = ({ addMessage, dialogs, usersArr }) => {
 
   return (
     <MainContainer>
+      Сообщения
       {/* <Companions dialogs={dialogs} />
       <Content>
         <Messages dialogs={dialogs} usersArr={usersArr} />

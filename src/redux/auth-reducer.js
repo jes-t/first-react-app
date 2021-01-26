@@ -37,7 +37,7 @@ export const setErrorMessage = (errorMessage) => {
 }
 
 export const getAuth = () => (dispatch) => {
-  authAPI.getAuthMe().then((data) => {
+  return authAPI.getAuthMe().then((data) => {
     if (data.resultCode === 0) {
       const { id, login, email } = data.data
       dispatch(setAuthUserData(id, login, email, true))
@@ -50,7 +50,6 @@ export const postLogin = (email, password, rememberMe) => (dispatch) => {
     if (response.data.resultCode === 0) {
       dispatch(getAuth())
     } else {
-      // console.log(response.data.messages[0])
       dispatch(setErrorMessage(response.data.messages[0]))
     }
   })
