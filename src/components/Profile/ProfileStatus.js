@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input, Spin } from 'antd'
 import styled from 'styled-components'
 
@@ -8,6 +8,9 @@ export const ProfileStatus = (props) => {
   const [editMode, setEditMode] = useState(false)
   const [status, setStatus] = useState(props?.status)
   const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    setStatus(props.status)
+  }, [props.status])
 
   const handleDoubleClick = () => {
     if (props.userId === '13090' || props.userId === undefined) {
