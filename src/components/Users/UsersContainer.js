@@ -47,16 +47,6 @@ export const UsersAPIComponent = ({
   )
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     usersArr: state.users.usersArr,
-//     pageSize: state.users.pageSize,
-//     totalUsersCount: state.users.totalUsersCount,
-//     currentPage: state.users.currentPage,
-//     isFetching: state.users.isFetching,
-//     followingInProgress: state.users.followingInProgress,
-//   }
-// }
 const mapStateToProps = (state) => {
   return {
     usersArr: getUsersArr(state),
