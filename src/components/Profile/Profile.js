@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { MyPostsContainer } from './MyPosts/MyPostsContainer'
-import logo from '../../logo.png'
 import {
   getProfileThunk,
   getUserStatus,
@@ -51,7 +50,6 @@ const ProfileContainer = ({
           userId={params.id}
         />
       </div>
-      {/* <img src={logo} /> */}
       <h1>My Post</h1>
       <MyPostsContainer />
     </div>

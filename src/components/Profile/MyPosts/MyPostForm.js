@@ -1,6 +1,5 @@
 import React from 'react'
 import { Input, Form, Button } from 'antd'
-import { requiredField, maxLengthCreator } from '../../../helpers/validators'
 
 export const MyPostsForm = ({ addPost }) => {
   const [form] = Form.useForm()

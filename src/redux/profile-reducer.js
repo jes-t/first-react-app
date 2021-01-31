@@ -54,33 +54,27 @@ export const setStatus = (status) => {
   }
 }
 
-export const getProfileThunk = (params, setLoading) => {
-  return (dispatch) => {
-    setLoading(true)
-    profileAPI
-      .getProfile(params)
-      .then((response) => {
-        dispatch(setUserProfile(response?.data))
-        setLoading(false)
-      })
-      .catch((error) => {
-        setLoading(false)
-      })
+export const getProfileThunk = (params, setLoading) => async (dispatch) => {
+  setLoading(true)
+  try {
+    const response = await profileAPI.getProfile(params)
+    dispatch(setUserProfile(response?.data))
+    setLoading(false)
+  } catch (error) {
+    setLoading(false)
   }
 }
 
-export const getUserStatus = (userId) => (dispatch) => {
-  profileAPI.getStatus(userId).then((response) => {
-    dispatch(setStatus(response.data))
-  })
+export const getUserStatus = (userId) => async (dispatch) => {
+  const response = await profileAPI.getStatus(userId)
+  dispatch(setStatus(response.data))
 }
 
-export const updateStatus = (status, setLoading) => (dispatch) => {
+export const updateStatus = (status, setLoading) => async (dispatch) => {
   setLoading(true)
-  profileAPI.updateStatus(status).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setStatus(status))
-      setLoading(false)
-    }
-  })
+  const response = await profileAPI.updateStatus(status)
+  if (response.data.resultCode === 0) {
+    dispatch(setStatus(status))
+    setLoading(false)
+  }
 }
