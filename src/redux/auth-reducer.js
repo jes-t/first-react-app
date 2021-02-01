@@ -36,29 +36,26 @@ export const setErrorMessage = (errorMessage) => {
   return { type: SET_ERROR, errorMessage }
 }
 
-export const getAuth = () => (dispatch) => {
-  return authAPI.getAuthMe().then((data) => {
-    if (data.resultCode === 0) {
-      const { id, login, email } = data.data
-      dispatch(setAuthUserData(id, login, email, true))
-    }
-  })
+export const getAuth = () => async (dispatch) => {
+  const data = await authAPI.getAuthMe()
+  if (data.resultCode === 0) {
+    const { id, login, email } = data.data
+    dispatch(setAuthUserData(id, login, email, true))
+  }
 }
 
-export const postLogin = (email, password, rememberMe) => (dispatch) => {
-  authAPI.postLogin(email, password, rememberMe).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(getAuth())
-    } else {
-      dispatch(setErrorMessage(response.data.messages[0]))
-    }
-  })
+export const postLogin = (email, password, rememberMe) => async (dispatch) => {
+  const response = await authAPI.postLogin(email, password, rememberMe)
+  if (response.data.resultCode === 0) {
+    dispatch(getAuth())
+  } else {
+    dispatch(setErrorMessage(response.data.messages[0]))
+  }
 }
 
-export const deleteLogout = () => (dispatch) => {
-  authAPI.deleteLogout().then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setAuthUserData(null, null, null, false))
-    }
-  })
+export const deleteLogout = () => async (dispatch) => {
+  const response = await authAPI.deleteLogout()
+  if (response.data.resultCode === 0) {
+    dispatch(setAuthUserData(null, null, null, false))
+  }
 }

@@ -13,13 +13,14 @@ import logo from './logo.png'
 import { Profile } from './components/Profile/Profile'
 import { UsersContainer } from './components/Users/UsersContainer'
 import { DialogsContainer } from './components/Dialogs/DialogsContainer'
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch, Link, withRouter } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
 import { HomePage } from './components/HomePage/HomePage'
 import { LoginContainer } from './components/Login/LoginContainer'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { initializeApp } from './redux/app-reducer'
+import { compose } from 'redux'
 
 const { Header, Content, Footer, Sider } = Layout
 const { Item } = Menu
@@ -116,7 +117,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   initializeApp,
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(App)
 
 const StyledMenu = styled(Menu)`
   min-height: calc(100% - 120px);
