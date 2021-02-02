@@ -13,7 +13,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = { addMessage: newMessageActionCreator }
 
-export const DialogsContainer = compose(
+const DialogsContainer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect
 )(Dialogs)
+
+export default DialogsContainer

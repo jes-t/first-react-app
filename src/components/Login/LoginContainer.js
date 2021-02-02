@@ -38,7 +38,9 @@ const mapDispatchToProps = {
   deleteLogout,
   setErrorMessage,
 }
-export const LoginContainer = connect(
+const LoginContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(LoginShellContainer)
+
+export default LoginContainer

@@ -13,7 +13,7 @@ import {
   getFollowingInProgress,
 } from '../../redux/users-selectors'
 
-export const UsersAPIComponent = ({
+const UsersAPIComponent = ({
   usersArr,
   pageSize,
   totalUsersCount,
@@ -63,7 +63,9 @@ const mapDispatchToProps = {
   unfollowThunk,
 }
 
-export const UsersContainer = compose(
+const UsersContainer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect
 )(UsersAPIComponent)
+
+export default UsersContainer

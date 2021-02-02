@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy } from 'react'
 import { Layout, Menu, Spin } from 'antd'
 import {
   HomeOutlined,
@@ -10,17 +10,21 @@ import {
 import 'antd/dist/antd.css'
 import './App.css'
 import logo from './logo.png'
-import { Profile } from './components/Profile/Profile'
-import { UsersContainer } from './components/Users/UsersContainer'
-import { DialogsContainer } from './components/Dialogs/DialogsContainer'
 import { Route, Switch, Link, withRouter } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound/PageNotFound'
 import { HomePage } from './components/HomePage/HomePage'
-import { LoginContainer } from './components/Login/LoginContainer'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { initializeApp } from './redux/app-reducer'
 import { compose } from 'redux'
+import { Profile } from './components/Profile/Profile'
+import { withSuspense } from './hoc/withSuspense'
+
+const DialogsContainer = lazy(() =>
+  import('./components/Dialogs/DialogsContainer')
+)
+const LoginContainer = lazy(() => import('./components/Login/LoginContainer'))
+const UsersContainer = lazy(() => import('./components/Users/UsersContainer'))
 
 const { Header, Content, Footer, Sider } = Layout
 const { Item } = Menu
@@ -85,17 +89,17 @@ const App = ({ location, initialized, initializeApp }) => {
                   <Route
                     exact
                     path="/users"
-                    render={() => <UsersContainer />}
+                    render={withSuspense(UsersContainer)}
                   />
                   <Route
                     exact
                     path="/dialogs"
-                    render={() => <DialogsContainer />}
+                    render={withSuspense(DialogsContainer)}
                   />
                   <Route
                     exact
                     path="/login"
-                    render={() => <LoginContainer />}
+                    render={withSuspense(LoginContainer)}
                   />
                   <Route path="*" component={PageNotFound} />
                 </Switch>
