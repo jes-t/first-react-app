@@ -5,6 +5,7 @@ import {
   getProfileThunk,
   getUserStatus,
   updateStatus,
+  savePhoto,
 } from '../../redux/profile-reducer'
 import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
@@ -12,6 +13,7 @@ import styled from 'styled-components'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import { ProfileStatus } from './ProfileStatus'
+import userPhoto from '../../userLogo.png'
 
 const ProfileContainer = ({
   profile,
@@ -19,15 +21,16 @@ const ProfileContainer = ({
   getProfileThunk,
   getUserStatus,
   updateStatus,
+  savePhoto,
 }) => {
   const params = useParams()
-
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getProfileThunk(params, setLoading)
     getUserStatus(params.id || 13090)
-  }, [])
+  }, [params])
+
   if (loading) {
     return (
       <SpinContainer>
@@ -36,13 +39,23 @@ const ProfileContainer = ({
     )
   }
 
+  const isOwner = params.id === '13090' || params.id === undefined
+  const onMainPhotosSelector = (e) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0])
+    }
+  }
+
   return (
     <div>
       <div>
         <h1>{profile ? profile.fullName : 'Users name'} </h1>
         {`About me: ${profile?.aboutMe}`}
         <div>
-          <img src={profile?.photos?.small} />
+          <img src={profile?.photos?.small || userPhoto} />
+          <div>
+            {isOwner && <input type={'file'} onChange={onMainPhotosSelector} />}
+          </div>
         </div>
         <ProfileStatus
           status={status}
@@ -66,6 +79,7 @@ const mapDispatchToProps = {
   getProfileThunk,
   getUserStatus,
   updateStatus,
+  savePhoto,
 }
 
 export const Profile = compose(
