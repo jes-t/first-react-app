@@ -1,4 +1,5 @@
 import { profileAPI } from '../api/api'
+import { setErrorMessage } from './auth-reducer'
 
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -36,6 +37,7 @@ export const profileReducer = (state = initialState, action) => {
     case SAVE_PHOTOS_SACCESS: {
       return { ...state, profile: { ...state.profile, photos: action.photos } }
     }
+
     default:
       return state
   }
@@ -93,4 +95,24 @@ export const savePhoto = (file) => async (dispatch) => {
   if (response.data.resultCode === 0) {
     dispatch(savePhotoSuccess(response.data.data.photos))
   }
+}
+export const saveProfile = (profile, setLoading, setEditMode) => async (
+  dispatch,
+  getState
+) => {
+  setLoading(true)
+  const userId = getState().auth.id
+  const response = await profileAPI.saveProfile(profile)
+
+  if (response.data.resultCode === 0) {
+    const profileResponse = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(profileResponse?.data))
+    setLoading(false)
+    setEditMode(false)
+  } else if (response.data.resultCode === 1) {
+    console.log(response?.data.messages)
+    dispatch(setErrorMessage(response?.data.messages))
+  }
+  setLoading(false)
+  setEditMode(false)
 }

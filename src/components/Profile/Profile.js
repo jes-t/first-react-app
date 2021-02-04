@@ -6,14 +6,20 @@ import {
   getUserStatus,
   updateStatus,
   savePhoto,
+  saveProfile,
 } from '../../redux/profile-reducer'
 import { useParams } from 'react-router-dom'
-import { Spin } from 'antd'
+import { Spin, Button } from 'antd'
 import styled from 'styled-components'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
+import { ProfileData } from './ProfileData'
 import { ProfileStatus } from './ProfileStatus'
 import userPhoto from '../../userLogo.png'
+import { ProfileDataForm } from './ProfileDataForm'
+import { ContactsModal } from './ContactsModal'
+import { pathOr } from 'ramda'
+import { setErrorMessage } from '../../redux/auth-reducer'
 
 const ProfileContainer = ({
   profile,
@@ -22,9 +28,27 @@ const ProfileContainer = ({
   getUserStatus,
   updateStatus,
   savePhoto,
+  saveProfile,
+  setErrorMessage,
+  errorMessage,
 }) => {
   const params = useParams()
   const [loading, setLoading] = useState(false)
+  const [contactsSaving, setContactsSaving] = useState(false)
+  const [editMode, setEditMode] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const contactsData = pathOr({}, ['contacts'], profile)
+
+  const onSaveContacts = (contacts) => {
+    saveProfile({ ...profile, contacts }, setContactsSaving, setEditMode)
+  }
+
+  useEffect(() => {
+    if (!contactsSaving) {
+      setModalVisible(false)
+    }
+  }, [contactsSaving])
 
   useEffect(() => {
     getProfileThunk(params, setLoading)
@@ -49,18 +73,48 @@ const ProfileContainer = ({
   return (
     <div>
       <div>
-        <h1>{profile ? profile.fullName : 'Users name'} </h1>
-        {`About me: ${profile?.aboutMe}`}
-        <div>
-          <img src={profile?.photos?.small || userPhoto} />
-          <div>
-            {isOwner && <input type={'file'} onChange={onMainPhotosSelector} />}
-          </div>
-        </div>
-        <ProfileStatus
-          status={status}
-          updateStatus={updateStatus}
-          userId={params.id}
+        <img src={profile?.photos?.small || userPhoto} />
+        {isOwner && <input type={'file'} onChange={onMainPhotosSelector} />}
+      </div>
+      <ProfileStatus
+        status={status}
+        updateStatus={updateStatus}
+        userId={params.id}
+      />
+      {editMode ? (
+        <ProfileDataForm
+          profile={profile}
+          saveProfile={saveProfile}
+          setEditMode={setEditMode}
+        />
+      ) : (
+        <ProfileData
+          profile={profile}
+          isOwner={isOwner}
+          goToEditMode={() => {
+            setEditMode(true)
+          }}
+        />
+      )}
+      <div>
+        <Button
+          type="primary"
+          onClick={() => {
+            setModalVisible(true)
+          }}
+        >
+          Contacts
+        </Button>
+        <ContactsModal
+          modalVisible={modalVisible}
+          contactsSaving={contactsSaving}
+          onSaveContacts={onSaveContacts}
+          contactsData={contactsData}
+          onCancel={() => {
+            setModalVisible(false)
+          }}
+          setErrorMessage={setErrorMessage}
+          errorMessage={errorMessage}
         />
       </div>
       <h1>My Post</h1>
@@ -73,6 +127,7 @@ const mapStateToProps = (state) => {
   return {
     profile: state.profile.profile,
     status: state.profile.status,
+    errorMessage: state.auth.errorMessage,
   }
 }
 const mapDispatchToProps = {
@@ -80,6 +135,8 @@ const mapDispatchToProps = {
   getUserStatus,
   updateStatus,
   savePhoto,
+  saveProfile,
+  setErrorMessage,
 }
 
 export const Profile = compose(

@@ -31,6 +31,7 @@ export const ProfileStatus = (props) => {
 
   return (
     <StyleContainer>
+      <b>Status:</b>
       {editMode ? (
         <Input
           onChange={onStatusChange}
