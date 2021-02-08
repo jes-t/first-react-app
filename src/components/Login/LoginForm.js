@@ -3,9 +3,14 @@ import { Form, Input, Button, Checkbox, Alert } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 
-export const LoginForm = ({ postLogin, errorMessage, setErrorMessage }) => {
+export const LoginForm = ({
+  postLogin,
+  errorMessage,
+  setErrorMessage,
+  captchaUrl,
+}) => {
   const onSubmit = (values) => {
-    postLogin(values.email, values.password, values.rememberMe)
+    postLogin(values.email, values.password, values.rememberMe, values.captcha)
   }
 
   return (
@@ -41,6 +46,16 @@ export const LoginForm = ({ postLogin, errorMessage, setErrorMessage }) => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
         </Form.Item>
+
+        {captchaUrl && <img src={captchaUrl} />}
+        {captchaUrl && (
+          <Form.Item
+            name="captcha"
+            rules={[{ required: true, message: 'Please input symbols' }]}
+          >
+            <Input placeholder="Symbols from image" />
+          </Form.Item>
+        )}
 
         <Form.Item>
           <Button

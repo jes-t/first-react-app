@@ -14,6 +14,7 @@ export const LoginShellContainer = ({
   deleteLogout,
   errorMessage,
   setErrorMessage,
+  captchaUrl,
 }) => {
   return (
     <Login
@@ -23,6 +24,7 @@ export const LoginShellContainer = ({
       deleteLogout={deleteLogout}
       errorMessage={errorMessage}
       setErrorMessage={setErrorMessage}
+      captchaUrl={captchaUrl}
     />
   )
 }
@@ -31,6 +33,7 @@ const mapStateToProps = (state) => {
     isAuth: state.auth.isAuth,
     login: state.auth.login,
     errorMessage: state.auth.errorMessage,
+    captchaUrl: state.auth.captchaUrl,
   }
 }
 const mapDispatchToProps = {

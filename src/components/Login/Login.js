@@ -15,6 +15,7 @@ export const Login = ({
   deleteLogout,
   errorMessage,
   setErrorMessage,
+  captchaUrl,
 }) => {
   return (
     <div>
@@ -32,6 +33,7 @@ export const Login = ({
             postLogin={postLogin}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
+            captchaUrl={captchaUrl}
           />
         </div>
       )}
