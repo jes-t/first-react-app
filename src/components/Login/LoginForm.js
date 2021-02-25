@@ -13,6 +13,13 @@ export const LoginForm = ({
     postLogin(values.email, values.password, values.rememberMe, values.captcha)
   }
 
+  // const emailValidate = (email) => {
+  //   const validate = /^([a-z0-9_\.-])+[@][a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i
+  //   if (validate.test(email)) {
+  //     return 'invalid email address'
+  //   } /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  // }
+
   return (
     <>
       {!!errorMessage && (
@@ -31,7 +38,18 @@ export const LoginForm = ({
       <StyledForm initialValues={{ remember: true }} onFinish={onSubmit}>
         <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Please input your email!' }]}
+          rules={[
+            { required: true, message: 'Please input your email!' },
+            {
+              validator(_, value) {
+                const validate = /^([a-z0-9_\.-])+[@][a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i
+                if (!value || validate.test(value)) {
+                  return Promise.resolve()
+                }
+                return Promise.reject('Invalid email address')
+              },
+            },
+          ]}
         >
           <Input prefix={<UserOutlined />} placeholder="Email" />
         </Form.Item>
